@@ -1,20 +1,34 @@
-import Fastify from 'fastify';
+import express from 'express';
+import { createServer } from 'http';
 import { Server } from 'socket.io';
-import cors from '@fastify/cors';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { createGameManager } from './gameManager.js';
 
-const fastify = Fastify({ logger: true });
-await fastify.register(cors, {
-  origin: '*',
-  methods: ['GET', 'POST']
-});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const io = new Server(fastify.server, {
+const app = express();
+const httpServer = createServer(app);
+
+// Configure CORS for production
+const io = new Server(httpServer, {
   cors: {
-    origin: '*',
-    methods: ['GET', 'POST']
+    origin: process.env.FRONTEND_URL || "http://localhost:5173", // Your frontend URL
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
+
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('dist'));
+  
+  // Handle client-side routing
+  app.get('*', (req, res) => {
+    res.sendFile('index.html', { root: 'dist' });
+  });
+}
 
 const gameManager = createGameManager();
 
@@ -247,15 +261,7 @@ setInterval(() => {
   });
 }, 1000);
 
-// Start the server
-const start = async () => {
-  try {
-    await fastify.listen({ port: 3000, host: '0.0.0.0' });
-    console.log('Server is running on http://localhost:3000');
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-};
-
-start();
+const PORT = process.env.PORT || 3000;
+httpServer.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

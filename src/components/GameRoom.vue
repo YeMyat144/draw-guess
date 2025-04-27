@@ -28,7 +28,8 @@ const messages = ref<{ username: string; message: string; isSystemMessage?: bool
 // Connect to socket server
 onMounted(() => {
   // Connect to the socket server
-  socket.value = io('http://localhost:3000');
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  socket.value = io(backendUrl);
   
   socket.value.on('connect', () => {
     isConnected.value = true;
