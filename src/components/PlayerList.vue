@@ -17,10 +17,7 @@ const sortedPlayers = () => {
   return [...props.players].sort((a, b) => b.score - a.score);
 };
 
-// Check if current user is the drawer
-const isCurrentUserDrawer = () => {
-  return props.isDrawer;
-};
+
 </script>
 
 <template>

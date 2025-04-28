@@ -1,4 +1,3 @@
-// List of words for the game
 const WORDS = [
   'apple', 'banana', 'car', 'dog', 'elephant', 
   'flower', 'guitar', 'house', 'island', 'jacket',

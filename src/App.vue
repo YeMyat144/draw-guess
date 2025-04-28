@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import GameRoom from './components/GameRoom.vue';
 import JoinRoom from './components/JoinRoom.vue';
 
