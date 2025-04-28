@@ -12,7 +12,8 @@
  }>();
  
  // Socket connection
- const socket = ref<Socket | null>(null);
+  const socket = ref<Socket | null>(null);
+
 
  
  // Game state
@@ -274,6 +275,7 @@
      <div class="game-content">
        <div class="game-main">
          <DrawingCanvas 
+           :socket="socket?.value"
            :is-drawer="isDrawer" 
            :is-paused="isPaused"
            :round-time="roundTime"
@@ -283,7 +285,6 @@
            @set-round-time="handleSetRoundTime"
            @restart-round="handleRestartRound"
            @set-custom-word="handleSetCustomWord"
-           :socket="socket"
          />
        </div>
        

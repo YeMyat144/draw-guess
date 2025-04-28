@@ -3,11 +3,11 @@
  import type { Socket } from 'socket.io-client';
  
  const props = defineProps<{
-   isDrawer: boolean;
-   socket: Socket;
-   isPaused?: boolean;
-   roundTime?: number;
- }>();
+  isDrawer: boolean;
+  socket: Socket | null;  // Not a ref anymore, just the Socket object
+  isPaused?: boolean;
+  roundTime?: number;
+}>();
  
  const emit = defineEmits(['drawing', 'clear-canvas', 'toggle-timer', 'set-round-time', 'restart-round', 'set-custom-word']);
  
@@ -19,16 +19,7 @@
  const customWord = ref('');
  const showCustomWordInput = ref(false);
  
- const colors = [
-   '#000000', // Black
-   '#4361EE', // Blue
-   '#2EC4B6', // Teal
-   '#FF9F1C', // Orange
-   '#E71D36', // Red
-   '#6A0572', // Purple
-   '#3A5F0B', // Green
-   '#FFD700'  // Yellow
- ];
+ 
  
  // Initialize canvas
  onMounted(() => {
@@ -184,15 +175,6 @@ watch(() => props.socket, (newSocket) => {
    };
  };
  
- // Change drawing color
- const setColor = (color: string) => {
-   selectedColor.value = color;
-   
-   if (canvasContext.value) {
-     canvasContext.value.strokeStyle = color;
-   }
- };
- 
  // Change line width
  const setLineWidth = (width: number) => {
    lineWidth.value = width;
@@ -216,20 +198,7 @@ watch(() => props.socket, (newSocket) => {
    clearCanvas();
    emit('clear-canvas');
  };
- 
- // Handle timer controls
- const handleToggleTimer = () => {
-   emit('toggle-timer');
- };
- 
- const handleSetRoundTime = (seconds: number) => {
-   emit('set-round-time', seconds);
- };
- 
- const handleRestartRound = () => {
-   emit('restart-round');
- };
- 
+
  // Handle custom word input
  const toggleCustomWordInput = () => {
    showCustomWordInput.value = !showCustomWordInput.value;
