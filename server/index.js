@@ -5,17 +5,20 @@ import Fastify from 'fastify';
  
  const fastify = Fastify({ logger: true });
  await fastify.register(cors, {
-   origin: '*',
-   methods: ['GET', 'POST']
- });
- 
- const io = new Server(fastify.server, {
-   cors: {
-     origin: '*',
-     methods: ['GET', 'POST']
-   }
- });
- 
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://your-frontend-domain.netlify.app']
+    : '*',
+  methods: ['GET', 'POST']
+});
+
+const io = new Server(fastify.server, {
+  cors: {
+    origin: process.env.NODE_ENV === 'production'
+      ? ['https://your-frontend-domain.netlify.app']
+      : '*',
+    methods: ['GET', 'POST']
+  }
+});
  const gameManager = createGameManager();
  
  io.on('connection', (socket) => {

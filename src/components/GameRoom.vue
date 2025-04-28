@@ -30,7 +30,8 @@
  // Connect to socket server
  onMounted(() => {
    // Connect to the socket server
-  socket = io('http://localhost:3000') as Socket;
+   
+  socket = io(import.meta.env.VITE_SOCKET_URL) as Socket;
    
    socket.on('connect', () => {
      isConnected.value = true;
