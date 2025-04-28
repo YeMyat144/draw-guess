@@ -12,7 +12,7 @@
  }>();
  
  // Socket connection
-  const socket = ref<Socket | null>(null);
+  let socket: Socket | null = null;
 
 
  
@@ -30,17 +30,17 @@
  // Connect to socket server
  onMounted(() => {
    // Connect to the socket server
-   socket.value = io('http://localhost:3000');
+  socket = io('http://localhost:3000') as Socket;
    
-   socket.value.on('connect', () => {
+   socket.on('connect', () => {
      isConnected.value = true;
      console.log('Connected to server');
      
      // Join the room
-     socket.value?.emit('join-room', { username: props.username, roomId: props.roomId });
+     socket?.emit('join-room', { username: props.username, roomId: props.roomId });
    });
    
-   socket.value.on('room-joined', (data) => {
+   socket.on('room-joined', (data) => {
      console.log('Room joined:', data);
      players.value = data.players || [];
      drawerUsername.value = data.currentDrawer ? 
@@ -57,7 +57,7 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('start-drawing', (data) => {
+   socket.on('start-drawing', (data) => {
      isDrawer.value = true;
      currentWord.value = data.word;
      const systemMessage = {
@@ -68,7 +68,7 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('new-round', (data) => {
+   socket.on('new-round', (data) => {
      drawerUsername.value = data.drawerUsername;
      timeLeft.value = data.timeLeft;
      isPaused.value = data.isPaused;
@@ -87,12 +87,12 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('timer-tick', (data) => {
+   socket.on('timer-tick', (data) => {
      timeLeft.value = data.secondsLeft;
      isPaused.value = data.isPaused;
    });
    
-   socket.value.on('timer-state-changed', (data) => {
+   socket.on('timer-state-changed', (data) => {
      isPaused.value = data.isPaused;
      const systemMessage = {
        username: 'System',
@@ -102,7 +102,7 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('round-time-updated', (data) => {
+   socket.on('round-time-updated', (data) => {
      timeLeft.value = data.timeLeft;
      roundTime.value = data.timeLeft;
      const systemMessage = {
@@ -113,7 +113,7 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('round-restarted', (data) => {
+   socket.on('round-restarted', (data) => {
      timeLeft.value = data.timeLeft;
      isPaused.value = data.isPaused;
      const systemMessage = {
@@ -124,7 +124,7 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('round-end', (data) => {
+   socket.on('round-end', (data) => {
      const systemMessage = {
        username: 'System',
        message: data.message,
@@ -133,7 +133,7 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('player-joined', (data) => {
+   socket.on('player-joined', (data) => {
      players.value.push({
        id: data.id,
        username: data.username,
@@ -149,7 +149,7 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('player-left', (data) => {
+   socket.on('player-left', (data) => {
      players.value = players.value.filter(player => player.id !== data.id);
      
      const systemMessage = {
@@ -160,11 +160,11 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('chat-message', (data) => {
+   socket.on('chat-message', (data) => {
      messages.value.push(data);
    });
    
-   socket.value.on('guess-result', (data) => {
+   socket.on('guess-result', (data) => {
      const systemMessage = {
        username: 'System',
        message: data.message,
@@ -173,7 +173,7 @@
      messages.value.push(systemMessage);
    });
    
-   socket.value.on('update-scores', (data) => {
+   socket.on('update-scores', (data) => {
      // Update player scores
      for (const player of players.value) {
        if (data.scores[player.id] !== undefined) {
@@ -182,7 +182,7 @@
      }
    });
    
-   socket.value.on('disconnect', () => {
+   socket.on('disconnect', () => {
      isConnected.value = false;
      console.log('Disconnected from server');
    });
@@ -190,62 +190,62 @@
  
  // Disconnect socket on component unmount
  onBeforeUnmount(() => {
-   if (socket.value) {
-     socket.value.disconnect();
+   if (socket) {
+     socket.disconnect();
    }
  });
  
  // Handle sending a guess
  const sendGuess = (guess: string) => {
-   if (!socket.value || !isConnected.value) return;
+   if (!socket || !isConnected.value) return;
    
-   socket.value.emit('send-guess', { guess });
+   socket.emit('send-guess', { guess });
  };
  
  // Handle drawing event
  const handleDrawing = (drawingData: { x: number; y: number; type: string }) => {
-   if (!socket.value || !isConnected.value || !isDrawer.value) return;
+   if (!socket || !isConnected.value || !isDrawer.value) return;
    
-   socket.value.emit('drawing', drawingData);
+   socket.emit('drawing', drawingData);
  };
  
  // Handle requesting to be the drawer
  const requestDrawer = (username: string) => {
-   if (!socket.value || !isConnected.value || !isDrawer.value) return;
+   if (!socket || !isConnected.value || !isDrawer.value) return;
    
-   socket.value.emit('switch-role', { newDrawer: username });
+   socket.emit('switch-role', { newDrawer: username });
  };
  
  // Handle clearing the canvas
  const clearCanvas = () => {
-   if (!socket.value || !isConnected.value || !isDrawer.value) return;
+   if (!socket || !isConnected.value || !isDrawer.value) return;
    
-   socket.value.emit('clear-canvas');
+   socket.emit('clear-canvas');
  };
  
  // Handle timer controls
  const handleToggleTimer = () => {
-   if (!socket.value || !isConnected.value || !isDrawer.value) return;
+   if (!socket || !isConnected.value || !isDrawer.value) return;
    
-   socket.value.emit('toggle-timer');
+   socket.emit('toggle-timer');
  };
  
  const handleSetRoundTime = (seconds: number) => {
-   if (!socket.value || !isConnected.value || !isDrawer.value) return;
+   if (!socket || !isConnected.value || !isDrawer.value) return;
    
-   socket.value.emit('set-round-time', { seconds });
+   socket.emit('set-round-time', { seconds });
  };
  
  const handleRestartRound = () => {
-   if (!socket.value || !isConnected.value || !isDrawer.value) return;
+   if (!socket || !isConnected.value || !isDrawer.value) return;
    
-   socket.value.emit('restart-round');
+   socket.emit('restart-round');
  };
  
  const handleSetCustomWord = (word: string) => {
-   if (!socket.value || !isConnected.value || !isDrawer.value) return;
+   if (!socket || !isConnected.value || !isDrawer.value) return;
    
-   socket.value.emit('set-custom-word', { word });
+   socket.emit('set-custom-word', { word });
  };
  </script>
  
@@ -275,7 +275,7 @@
      <div class="game-content">
        <div class="game-main">
          <DrawingCanvas 
-           :socket="socket?.value"
+           :socket="socket || null"
            :is-drawer="isDrawer" 
            :is-paused="isPaused"
            :round-time="roundTime"
