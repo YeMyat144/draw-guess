@@ -12,7 +12,7 @@
  }>();
  
  // Socket connection
-  let socket: Socket | null = null;
+ let socket: Socket | null = null;
 
 
  
@@ -30,8 +30,12 @@
  // Connect to socket server
  onMounted(() => {
    // Connect to the socket server
-   
-  socket = io(import.meta.env.VITE_SOCKET_URL) as Socket;
+   socket = io('https://drawguess-backend.onrender.com', {
+     transports: ['websocket'],
+     reconnection: true,
+     reconnectionAttempts: 5,
+     reconnectionDelay: 1000
+   });
    
    socket.on('connect', () => {
      isConnected.value = true;
