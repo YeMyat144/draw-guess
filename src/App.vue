@@ -37,11 +37,11 @@ const handleJoinRoom = (data: { username: string; roomId: string }) => {
 }
 
 body {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #1e90ff 0%, #87ceeb 100%);
-  color: #333;
+  background-color: #fff;
+  color: #9a7787;
   line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
@@ -69,16 +69,15 @@ body {
   align-items: center;
   gap: 2rem;
   padding: 2rem;
-  background-color: white;
+  background-color: #fff;
   border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 3px solid #ffd700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
 }
 
 .app-title {
   font-size: 3rem;
-  color: #ff6b6b;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: #9a7787;
   margin-bottom: 1rem;
   text-align: center;
 }

@@ -99,27 +99,26 @@ const copyRoomId = async () => {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e90ff 0%, #87ceeb 100%);
+  background-color: #fff;
   padding: 2rem;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .join-form {
-  background-color: white;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-  border: 3px solid #ffd700;
+  border: 1px solid #e4afb0;
 }
 
 .form-title {
   text-align: center;
-  color: #ff6b6b;
+  color: #9a7787;
   margin-bottom: 1.5rem;
   font-size: 2rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .form-group {
@@ -129,24 +128,23 @@ const copyRoomId = async () => {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #ff6b6b;
-  font-weight: bold;
+  color: #9a7787;
+  font-weight: 500;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid #ffd700;
+  border: 1px solid #e4afb0;
   border-radius: 8px;
   font-size: 1rem;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  transition: all 0.3s ease;
+  font-family: inherit;
+  transition: all 0.25s ease;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #ff6b6b;
-  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+  border-color: #9a7787;
 }
 
 .room-id-group {
@@ -160,20 +158,20 @@ const copyRoomId = async () => {
 
 .copy-button {
   padding: 0.75rem 1rem;
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #fed7bf;
+  color: #9a7787;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  border: 2px solid #ffd700;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  border: 1px solid #e4afb0;
 }
 
 .copy-button:hover {
-  transform: scale(1.05);
-  background-color: #ff8c8c;
+  background-color: #e4afb0;
+  color: #fff;
 }
 
 .copy-success {
@@ -181,13 +179,13 @@ const copyRoomId = async () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #4CAF50;
-  color: white;
+  background-color: #fed7bf;
+  color: #9a7787;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 0.9rem;
   animation: fadeInOut 2s ease-in-out;
-  border: 2px solid #ffd700;
+  border: 1px solid #e4afb0;
 }
 
 @keyframes fadeInOut {
@@ -198,7 +196,7 @@ const copyRoomId = async () => {
 }
 
 .error-message {
-  color: #ff6b6b;
+  color: #9a7787;
   margin-top: 0.5rem;
   font-size: 0.9rem;
   text-align: center;
@@ -207,41 +205,41 @@ const copyRoomId = async () => {
 .join-button {
   width: 100%;
   padding: 1rem;
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #fed7bf;
+  color: #9a7787;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  border: 2px solid #ffd700;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  border: 1px solid #e4afb0;
   margin-top: 1rem;
 }
 
 .join-button:hover {
-  transform: scale(1.05);
-  background-color: #ff8c8c;
+  background-color: #e4afb0;
+  color: #fff;
 }
 
 .new-room-button {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background-color: #ffd700;
-  color: #333;
+  background-color: #fed7bf;
+  color: #9a7787;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  border: 2px solid #ff6b6b;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  border: 1px solid #e4afb0;
 }
 
 .new-room-button:hover {
-  transform: scale(1.05);
-  background-color: #ffeb3b;
+  background-color: #e4afb0;
+  color: #fff;
 }
 
 small {

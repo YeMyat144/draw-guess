@@ -1,10 +1,10 @@
 :root {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #333;
+  color: #9a7787;
   background-color: #fff;
 
   font-synthesis: none;
@@ -23,50 +23,46 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e90ff 0%, #87ceeb 100%);
+  background-color: #fff;
 }
 
 h1 {
   font-size: 2.5em;
   line-height: 1.1;
-  color: #ff6b6b;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: #9a7787;
 }
 
 button {
   border-radius: 8px;
-  border: 2px solid #ffd700;
+  border: 1px solid #e4afb0;
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-weight: bold;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  background-color: #ff6b6b;
-  color: white;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #fed7bf;
+  color: #9a7787;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 button:hover {
-  transform: scale(1.05);
-  background-color: #ff8c8c;
+  background-color: #e4afb0;
+  color: #fff;
 }
 
 input {
-  border: 2px solid #ffd700;
+  border: 1px solid #e4afb0;
   border-radius: 8px;
   padding: 0.6em 1.2em;
   font-size: 1em;
   background-color: #fff;
-  color: #333;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  transition: all 0.3s ease;
+  color: #9a7787;
 }
 
 input:focus,
 button:focus {
   outline: none;
-  border-color: #ff6b6b;
-  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+  border-color: #9a7787;
 }
 
 #app {
@@ -80,29 +76,27 @@ button:focus {
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   :root {
-    color: #fff;
-    background-color: #333;
+    color: #fed7bf;
+    background-color: #9a7787;
   }
   
   body {
-    color: #fff;
-    background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+    color: #fed7bf;
+    background-color: #9a7787;
   }
 
   button {
-    background-color: #ff6b6b;
-    color: white;
-    border-color: #ffd700;
+    background-color: #e4afb0;
+    color: #fff;
   }
 
   button:hover {
-    background-color: #ff8c8c;
-    color: white;
+    background-color: #fed7bf;
+    color: #9a7787;
   }
 
   input {
     background-color: #fff;
-    color: #333;
-    border-color: #ffd700;
+    color: #9a7787;
   }
 }

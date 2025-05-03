@@ -57,22 +57,21 @@ const sortedPlayers = () => {
 
 <style scoped>
 .player-list {
-  background-color: white;
+  background-color: #fff;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 3px solid #ffd700;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
   overflow: hidden;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .player-list h3 {
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #fed7bf;
+  color: #9a7787;
   padding: 15px;
   margin: 0;
   text-align: center;
-  border-bottom: 2px solid #ffd700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid #e4afb0;
 }
 
 .players {
@@ -80,7 +79,7 @@ const sortedPlayers = () => {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #f0f8ff;
+  background-color: #fff;
 }
 
 .player {
@@ -88,27 +87,26 @@ const sortedPlayers = () => {
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-  background-color: white;
+  background-color: #fff;
   border-radius: 10px;
-  border: 2px solid #ffd700;
-  transition: all 0.3s ease;
+  border: 1px solid #e4afb0;
+  transition: all 0.25s ease;
 }
 
 .player:hover {
-  transform: scale(1.02);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fed7bf;
 }
 
 .current-player {
-  background-color: #1e90ff;
-  color: white;
-  border-color: #ffd700;
+  background-color: #fed7bf;
+  color: #9a7787;
+  border-color: #e4afb0;
 }
 
 .is-drawer {
-  background-color: #ffd700;
-  color: #333;
-  border-color: #ff6b6b;
+  background-color: #fed7bf;
+  color: #9a7787;
+  border-color: #e4afb0;
 }
 
 .player-info {
@@ -118,48 +116,47 @@ const sortedPlayers = () => {
 }
 
 .player-name {
-  font-weight: bold;
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
 .drawer-badge {
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #fed7bf;
+  color: #9a7787;
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 0.8em;
-  border: 1px solid #ffd700;
+  border: 1px solid #e4afb0;
 }
 
 .player-score {
-  font-weight: bold;
-  color: #ff6b6b;
+  font-weight: 500;
+  color: #9a7787;
 }
 
 .give-turn-btn {
   padding: 6px 12px;
-  background-color: #ff6b6b;
-  color: white;
+  background-color: #fed7bf;
+  color: #9a7787;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  border: 2px solid #ffd700;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  border: 1px solid #e4afb0;
 }
 
 .give-turn-btn:hover {
-  transform: scale(1.05);
-  background-color: #ff8c8c;
+  background-color: #e4afb0;
+  color: #fff;
 }
 
 .give-turn-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
 
 .give-turn-icon {

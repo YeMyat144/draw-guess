@@ -271,117 +271,144 @@ watch(() => props.socket, (newSocket) => {
  </template>
  
  <style scoped>
- .canvas-wrapper {
-   position: relative;
-   width: 100%;
-   height: 100%;
-   background-color: #fff;
-   border-radius: 15px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-   border: 3px solid #ffd700;
-   overflow: hidden;
- }
- 
- canvas {
-   display: block;
-   background-color: white;
-   border-radius: 12px;
- }
- 
- .tools {
-   position: absolute;
-   bottom: 20px;
-   left: 20px;
-   display: flex;
-   gap: 10px;
-   background-color: rgba(255, 255, 255, 0.9);
-   padding: 10px;
-   border-radius: 10px;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-   border: 2px solid #ff6b6b;
- }
- 
- .color-picker {
-   display: flex;
-   gap: 5px;
- }
- 
- .color-option {
-   width: 30px;
-   height: 30px;
-   border-radius: 50%;
-   cursor: pointer;
-   border: 2px solid #ffd700;
-   transition: transform 0.2s ease;
- }
- 
- .color-option:hover {
-   transform: scale(1.1);
- }
- 
- .color-option.selected {
-   border: 3px solid #ff6b6b;
-   transform: scale(1.1);
- }
- 
- .size-control {
-   display: flex;
-   align-items: center;
-   gap: 5px;
- }
- 
- .size-control input {
-   width: 100px;
-   accent-color: #ff6b6b;
- }
- 
- .controls {
-   display: flex;
-   gap: 10px;
- }
- 
- button {
-   padding: 8px 16px;
-   border: none;
-   border-radius: 8px;
-   cursor: pointer;
-   font-weight: bold;
-   transition: all 0.3s ease;
-   font-family: 'Comic Sans MS', cursive, sans-serif;
- }
- 
- button:hover {
-   transform: scale(1.05);
- }
- 
- .clear-button {
-   background-color: #ff6b6b;
-   color: white;
-   border: 2px solid #ffd700;
- }
- 
- .custom-word-input {
-   position: absolute;
-   top: 20px;
-   left: 20px;
-   background-color: rgba(255, 255, 255, 0.9);
-   padding: 10px;
-   border-radius: 10px;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-   border: 2px solid #ff6b6b;
- }
- 
- .custom-word-input input {
-   padding: 8px;
-   border: 2px solid #ffd700;
-   border-radius: 5px;
-   margin-right: 10px;
-   font-family: 'Comic Sans MS', cursive, sans-serif;
- }
- 
- .custom-word-input button {
-   background-color: #4CAF50;
-   color: white;
-   border: 2px solid #ffd700;
- }
+.drawing-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
+  overflow: hidden;
+}
+
+.drawing-canvas {
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  background-color: #fff;
+}
+
+.drawing-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-top: 1px solid #e4afb0;
+}
+
+.line-width-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.line-width-control input {
+  width: 100px;
+}
+
+.color-picker {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.color-option {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #e4afb0;
+  transition: all 0.25s ease;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+}
+
+.color-option.selected {
+  border: 2px solid #9a7787;
+}
+
+.clear-button {
+  padding: 0.5rem 1rem;
+  background-color: #fed7bf;
+  color: #9a7787;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  border: 1px solid #e4afb0;
+}
+
+.clear-button:hover {
+  background-color: #e4afb0;
+  color: #fff;
+}
+
+.custom-word-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.custom-word-input input {
+  padding: 0.5rem;
+  border: 1px solid #e4afb0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+
+.custom-word-input input:focus {
+  outline: none;
+  border-color: #9a7787;
+}
+
+.custom-word-input button {
+  padding: 0.5rem 1rem;
+  background-color: #fed7bf;
+  color: #9a7787;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  border: 1px solid #e4afb0;
+}
+
+.custom-word-input button:hover {
+  background-color: #e4afb0;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .drawing-controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .line-width-control {
+    width: 100%;
+  }
+  
+  .color-picker {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .custom-word-input {
+    width: 100%;
+  }
+  
+  .custom-word-input input {
+    flex: 1;
+  }
+}
  </style>

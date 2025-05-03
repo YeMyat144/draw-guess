@@ -311,205 +311,155 @@
  </template>
  
  <style scoped>
- .game-room {
-   display: flex;
-   flex-direction: column;
-   height: 100vh;
-   background: linear-gradient(135deg, #1e90ff 0%, #87ceeb 100%);
-   padding: 20px;
-   font-family: 'Comic Sans MS', cursive, sans-serif;
- }
- 
- .game-container {
-   display: flex;
-   flex: 1;
-   gap: 20px;
-   margin-top: 20px;
- }
- 
- .left-panel {
-   display: flex;
-   flex-direction: column;
-   gap: 20px;
-   width: 300px;
- }
- 
- .canvas-container {
-   flex: 1;
-   background-color: #fff;
-   border-radius: 15px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-   padding: 10px;
-   border: 3px solid #ffd700;
- }
- 
- .right-panel {
-   display: flex;
-   flex-direction: column;
-   gap: 20px;
-   width: 300px;
- }
- 
- .game-info {
-   background-color: #ff6b6b;
-   padding: 15px;
-   border-radius: 10px;
-   color: white;
-   text-align: center;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-   border: 2px solid #ffd700;
- }
- 
- .word-display {
-   font-size: 1.5em;
-   font-weight: bold;
-   margin: 10px 0;
-   color: #ffd700;
-   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
- }
- 
- .controls {
-   display: flex;
-   gap: 10px;
-   justify-content: center;
-   margin-top: 10px;
- }
- 
- button {
-   padding: 8px 16px;
-   border: none;
-   border-radius: 8px;
-   cursor: pointer;
-   font-weight: bold;
-   transition: all 0.3s ease;
-   font-family: 'Comic Sans MS', cursive, sans-serif;
- }
- 
- button:hover {
-   transform: scale(1.05);
- }
- 
- button:disabled {
-   opacity: 0.6;
-   cursor: not-allowed;
- }
- 
- .primary-button {
-   background-color: #ff6b6b;
-   color: white;
-   border: 2px solid #ffd700;
- }
- 
- .secondary-button {
-   background-color: #4CAF50;
-   color: white;
-   border: 2px solid #ffd700;
- }
- 
- .tertiary-button {
-   background-color: #ffd700;
-   color: #333;
-   border: 2px solid #ff6b6b;
- }
- 
- .status {
-   margin-top: 10px;
-   font-size: 0.9em;
-   color: #ffd700;
- }
- 
- .connected {
-   color: #4CAF50;
- }
- 
- .disconnected {
-   color: #ff6b6b;
- }
- 
- .game-header {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   padding: 1rem;
-   background-color: #fed7bf;
-   border-bottom: 1px solid #e4afb0;
-   box-shadow: 0 2px 4px rgba(154, 119, 135, 0.1);
- }
- 
- .room-info {
-   display: flex;
-   align-items: center;
-   gap: 1rem;
- }
- 
- .room-info h2 {
-   font-size: 1.5rem;
-   font-weight: 600;
-   margin: 0;
-   color: #9a7787;
- }
- 
- .current-drawer {
-   padding: 0.5rem 1rem;
-   background-color: #e4afb0;
-   border-radius: 6px;
-   font-weight: 500;
-   color: #fff;
- }
- .timer {
-   color: #fff;
- }
- 
- .game-content {
-   display: flex;
-   flex: 1;
-   overflow: hidden;
-   background-color: #fff;
- }
- 
- .game-main {
-   flex: 1;
-   display: flex;
-   flex-direction: column;
-   padding: 1rem;
-   overflow: hidden;
-   background-color: #fff;
- }
- 
- .game-sidebar {
-   width: 300px;
-   display: flex;
-   flex-direction: column;
-   border-left: 1px solid #e4afb0;
-   background-color: #fff;
- }
- 
- @media (max-width: 768px) {
-   .game-content {
-     flex-direction: column;
-   }
-   
-   .game-sidebar {
-     width: 100%;
-     border-left: none;
-     border-top: 1px solid #e4afb0;
-     height: 40vh;
-   }
-   
-   .game-header {
-     flex-direction: column;
-     align-items: flex-start;
-     gap: 0.5rem;
-     padding: 0.75rem;
-   }
-   
-   .room-info h2 {
-     font-size: 1.25rem;
-   }
-   
-   .timer {
-     width: 100%;
-     text-align: center;
-   }
- }
+.game-room {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #fff;
+  padding: 2rem;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
+}
+
+.game-title {
+  font-size: 2rem;
+  color: #9a7787;
+  margin: 0;
+}
+
+.game-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.game-status {
+  font-size: 1.2rem;
+  color: #9a7787;
+}
+
+.game-content {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.game-canvas {
+  flex: 1;
+  min-width: 300px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
+  padding: 1rem;
+}
+
+.game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 300px;
+}
+
+.game-chat {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
+  padding: 1rem;
+  flex: 1;
+}
+
+.game-players {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
+  padding: 1rem;
+}
+
+.game-controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.game-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #fed7bf;
+  color: #9a7787;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  border: 1px solid #e4afb0;
+}
+
+.game-button:hover {
+  background-color: #e4afb0;
+  color: #fff;
+}
+
+.game-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .game-room {
+    padding: 1rem;
+  }
+  
+  .game-container {
+    gap: 1rem;
+  }
+  
+  .game-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .game-title {
+    font-size: 1.5rem;
+  }
+  
+  .game-content {
+    flex-direction: column;
+  }
+  
+  .game-sidebar {
+    width: 100%;
+  }
+  
+  .game-controls {
+    flex-direction: column;
+  }
+  
+  .game-button {
+    width: 100%;
+  }
+}
  </style>

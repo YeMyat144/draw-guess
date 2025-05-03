@@ -67,15 +67,15 @@ watch(() => props.messages.length, async () => {
 </template>
 
 <style scoped>
-.chat-component {
+.chat {
   display: flex;
   flex-direction: column;
   height: 100%;
   background-color: #fff;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 3px solid #ffd700;
-  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .chat-header {
@@ -94,18 +94,21 @@ watch(() => props.messages.length, async () => {
 
 .chat-messages {
   flex: 1;
-  padding: 15px;
   overflow-y: auto;
-  background-color: #f0f8ff;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .message {
-  margin-bottom: 10px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  max-width: 80%;
-  word-wrap: break-word;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #e4afb0;
 }
 
 .system-message {
@@ -127,53 +130,75 @@ watch(() => props.messages.length, async () => {
 }
 
 .message-username {
-  font-weight: bold;
-  margin-right: 5px;
-  color: #ff6b6b;
+  font-weight: 500;
+  color: #9a7787;
+}
+
+.message-content {
+  color: #9a7787;
+}
+
+.message-time {
+  font-size: 0.8rem;
+  color: #9a7787;
+  opacity: 0.7;
 }
 
 .chat-input {
   display: flex;
-  padding: 15px;
-  background-color: #fff;
-  border-top: 2px solid #ffd700;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-top: 1px solid #e4afb0;
 }
 
 .chat-input input {
   flex: 1;
-  padding: 10px;
-  border: 2px solid #ffd700;
+  padding: 0.75rem;
+  border: 1px solid #e4afb0;
   border-radius: 8px;
-  margin-right: 10px;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.25s ease;
 }
 
 .chat-input input:focus {
   outline: none;
-  border-color: #ff6b6b;
+  border-color: #9a7787;
 }
 
 .chat-input button {
-  padding: 10px 20px;
-  background-color: #ff6b6b;
-  color: white;
+  padding: 0.75rem 1.5rem;
+  background-color: #fed7bf;
+  color: #9a7787;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
-  border: 2px solid #ffd700;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  border: 1px solid #e4afb0;
 }
 
 .chat-input button:hover {
-  transform: scale(1.05);
-  background-color: #ff8c8c;
+  background-color: #e4afb0;
+  color: #fff;
 }
 
-.chat-input button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
+@media (max-width: 768px) {
+  .chat {
+    height: 300px;
+  }
+  
+  .chat-input {
+    padding: 0.75rem;
+  }
+  
+  .chat-input input {
+    padding: 0.5rem;
+  }
+  
+  .chat-input button {
+    padding: 0.5rem 1rem;
+  }
 }
 </style>
