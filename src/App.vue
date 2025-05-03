@@ -40,8 +40,8 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fff;
-  color: #9a7787;
+  background-color: #353537;
+  color: #fff;
   line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
@@ -57,6 +57,7 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  background-color: #353537;
   padding: 1rem;
   width: 100%;
   flex: 1;
@@ -71,14 +72,14 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background-color: #fff;
+  background-color: #353537;
 }
 
 .app-title {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 2rem;
-  color: #9a7787;
+  color: #6db432;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;

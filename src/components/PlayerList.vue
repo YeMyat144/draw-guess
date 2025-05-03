@@ -57,29 +57,19 @@ const sortedPlayers = () => {
 
 <style scoped>
 .player-list {
-  background-color: #fff;
+  background-color: #7b7b7d;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e4afb0;
   overflow: hidden;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.player-list h3 {
-  background-color: #fed7bf;
-  color: #9a7787;
-  padding: 15px;
-  margin: 0;
-  text-align: center;
-  border-bottom: 1px solid #e4afb0;
-}
 
 .players {
   padding: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #fff;
+  background-color: #353537;
 }
 
 .player {
@@ -87,26 +77,24 @@ const sortedPlayers = () => {
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-  background-color: #fff;
+  background-color: #7b7b7d;
   border-radius: 10px;
-  border: 1px solid #e4afb0;
   transition: all 0.25s ease;
 }
 
 .player:hover {
-  background-color: #fed7bf;
+  background-color: #8dc064;
 }
 
 .current-player {
-  background-color: #fed7bf;
-  color: #9a7787;
-  border-color: #e4afb0;
+  background-color: #616569;
+  color: white;
 }
 
 .is-drawer {
-  background-color: #fed7bf;
-  color: #9a7787;
-  border-color: #e4afb0;
+  background-color: #8dc064;
+  color: white;
+  border-color: #7b7b7d;
 }
 
 .player-info {
@@ -123,34 +111,33 @@ const sortedPlayers = () => {
 }
 
 .drawer-badge {
-  background-color: #fed7bf;
-  color: #9a7787;
+  background-color: #6db432;
+  color: white;
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 0.8em;
-  border: 1px solid #e4afb0;
+  border: 1px solid #6db432;
 }
 
 .player-score {
   font-weight: 500;
-  color: #9a7787;
+  color: white;
 }
 
 .give-turn-btn {
-  padding: 6px 12px;
-  background-color: #fed7bf;
-  color: #9a7787;
+  padding: 2px 10px;
+  background-color: #6db432;
+  color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.25s ease;
   font-family: inherit;
-  border: 1px solid #e4afb0;
 }
 
 .give-turn-btn:hover {
-  background-color: #e4afb0;
+  background-color: #7b7b7d;
   color: #fff;
 }
 

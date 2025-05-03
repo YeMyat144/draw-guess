@@ -30,9 +30,6 @@ watch(() => props.messages.length, async () => {
 
 <template>
   <div class="chat-component">
-    <div class="chat-header">
-      <h3>Chat</h3>
-    </div>
     
     <div class="chat-messages" ref="chatContainer">
       <div 
@@ -70,21 +67,7 @@ watch(() => props.messages.length, async () => {
   display: flex;
   flex-direction: column;
   height: 50%;
-  border-top: 1px solid #e4afb0;
-  background-color: #fff;
-}
-
-.chat-header {
-  padding: 0.75rem 1rem;
-  background-color: #fed7bf;
-  border-bottom: 1px solid #e4afb0;
-}
-
-.chat-header h3 {
-  margin: 0;
-  font-size: 1rem;
-  color: #9a7787;
-  font-weight: 600;
+  background-color: #353537;
 }
 
 .chat-messages {
@@ -97,15 +80,14 @@ watch(() => props.messages.length, async () => {
 }
 
 .message {
-  padding: 0.5rem 0.75rem;
   border-radius: 8px;
-  background-color: #fed7bf;
+  background-color: #353537;
   max-width: 80%;
   word-break: break-word;
 }
 
 .own-message {
-  background-color: #9a7787;
+  background-color: #353537;
   color: white;
   align-self: flex-end;
 }
@@ -121,8 +103,7 @@ watch(() => props.messages.length, async () => {
 
 .chat-input {
   padding: 0.75rem;
-  background-color: #fff;
-  border-top: 1px solid #e4afb0;
+  background-color: #353537;
   display: flex;
   gap: 0.5rem;
 }
@@ -130,15 +111,14 @@ watch(() => props.messages.length, async () => {
 .chat-input input {
   flex: 1;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #e4afb0;
-  border-radius: 6px;
+  border: none;
   font-size: 0.9rem;
-  color: #9a7787;
+  color: #353537;
 }
 
 .chat-input input:focus {
   outline: none;
-  border-color: #9a7787;
+  border-color: #353537;
 }
 
 .chat-input input:disabled {
@@ -148,7 +128,7 @@ watch(() => props.messages.length, async () => {
 
 .chat-input button {
   padding: 0.5rem 1rem;
-  background-color: #9a7787;
+  background-color: #6db432;
   color: white;
   border: none;
   border-radius: 6px;
@@ -159,7 +139,7 @@ watch(() => props.messages.length, async () => {
 }
 
 .chat-input button:hover:not(:disabled) {
-  background-color: #e4afb0;
+  background-color: #8bc064;
   transform: translateY(-1px);
 }
 

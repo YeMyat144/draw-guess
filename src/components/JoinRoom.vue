@@ -97,26 +97,24 @@ const copyRoomId = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   justify-content: center;
-  min-height: 100vh;
-  background-color: #fff;
-  padding: 2rem;
+  background-color: #353537;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .join-form {
-  background-color: #fff;
+  background-color: #353537;
+  border-radius: 12px;
+  border: 5px solid #8dc064;
   padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-  border: 1px solid #e4afb0;
 }
 
 .form-title {
   text-align: center;
-  color: #9a7787;
+  color: #6db432;
   margin-bottom: 1.5rem;
   font-size: 2rem;
 }
@@ -128,23 +126,23 @@ const copyRoomId = async () => {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #9a7787;
+  color: #8dc064;
   font-weight: 500;
 }
 
 .form-group input {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #e4afb0;
   border-radius: 8px;
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.25s ease;
+  border:none;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #9a7787;
+  border: none;
 }
 
 .room-id-group {
@@ -154,24 +152,22 @@ const copyRoomId = async () => {
 
 .room-id-group input {
   flex: 1;
+  border: none;
 }
 
 .copy-button {
   padding: 0.75rem 1rem;
-  background-color: #fed7bf;
-  color: #9a7787;
+  background-color: #6db432;
+  color: white;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
   transition: all 0.25s ease;
   font-family: inherit;
-  border: 1px solid #e4afb0;
 }
 
 .copy-button:hover {
-  background-color: #e4afb0;
-  color: #fff;
+  background-color: #8bc064;
+  color: #353537;
 }
 
 .copy-success {
@@ -179,13 +175,12 @@ const copyRoomId = async () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fed7bf;
-  color: #9a7787;
+  background-color: #6db432;
+  color: white;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 0.9rem;
   animation: fadeInOut 2s ease-in-out;
-  border: 1px solid #e4afb0;
 }
 
 @keyframes fadeInOut {
@@ -196,7 +191,7 @@ const copyRoomId = async () => {
 }
 
 .error-message {
-  color: #9a7787;
+  color: red;
   margin-top: 0.5rem;
   font-size: 0.9rem;
   text-align: center;
@@ -205,8 +200,8 @@ const copyRoomId = async () => {
 .join-button {
   width: 100%;
   padding: 1rem;
-  background-color: #fed7bf;
-  color: #9a7787;
+  background-color: #6db432;
+  color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -214,38 +209,30 @@ const copyRoomId = async () => {
   font-size: 1.1rem;
   transition: all 0.25s ease;
   font-family: inherit;
-  border: 1px solid #e4afb0;
   margin-top: 1rem;
 }
 
 .join-button:hover {
-  background-color: #e4afb0;
-  color: #fff;
+  background-color: #8bc064;
+  color: #353537;
 }
 
 .new-room-button {
-  margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background-color: #fed7bf;
-  color: #9a7787;
+  background-color: #6db432;
+  color: white;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.25s ease;
-  font-family: inherit;
-  border: 1px solid #e4afb0;
 }
 
 .new-room-button:hover {
-  background-color: #e4afb0;
-  color: #fff;
+  background-color: #8dc064;
+  color: #353537;
 }
 
 small {
   display: block;
   font-size: 0.8rem;
-  color: #9a7787;
+  color: #6db432;
   margin-top: 0.3rem;
   opacity: 0.8;
 }

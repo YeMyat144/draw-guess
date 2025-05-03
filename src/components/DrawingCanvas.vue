@@ -255,7 +255,7 @@ watch(() => props.socket, (newSocket) => {
        <button class="control-button" @click="handleClearCanvas">Clear</button>
        
        <button class="control-button" @click="toggleCustomWordInput">
-         Set Custom Word
+         Word
        </button>
        <div v-if="showCustomWordInput" class="custom-word-input">
          <input
@@ -277,18 +277,18 @@ watch(() => props.socket, (newSocket) => {
    height: 100%;
    display: flex;
    flex-direction: column;
-   background-color: #fff;
+   background-color: #7b7b7d;
    border-radius: 12px;
    overflow: hidden;
    box-shadow: 0 4px 6px rgba(154, 119, 135, 0.1);
-   border: 1px solid #e4afb0;
+   border: 1px solid #353537;
  }
  
  .drawing-canvas {
    flex: 1;
    width: 100%;
    height: calc(100% - 70px);
-   background-color: #fff;
+   background-color: white;
    touch-action: none;
    display: block;
    margin: 0;
@@ -302,41 +302,11 @@ watch(() => props.socket, (newSocket) => {
    gap: 8px;
    height: 70px;
    padding: 12px;
-   background-color: #fed7bf;
-   border-top: 1px solid #e4afb0;
+   background-color: #353537;
    display: flex;
    align-items: center;
  }
  
- .color-picker {
-   display: flex;
-   gap: 8px;
-   background-color: #fff;
-   padding: 6px;
-   border-radius: 8px;
-   border: 1px solid #e4afb0;
- }
- 
- .color-button {
-   width: 28px;
-   height: 28px;
-   border-radius: 50%;
-   border: 2px solid transparent;
-   cursor: pointer;
-   transition: all 0.2s ease;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- }
- 
- .color-button:hover {
-   transform: scale(1.1);
-   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
- }
- 
- .color-button.active {
-   border-color: #9a7787;
-   transform: scale(1.1);
-   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
- }
  
  .line-width-control {
    display: flex;
@@ -346,12 +316,11 @@ watch(() => props.socket, (newSocket) => {
  
  .line-width-control input {
    width: 7rem;
-   accent-color: #9a7787;
  }
  
  .control-button {
    padding: 8px 16px;
-   background-color: #9a7787;
+   background-color: #6db432;
    color: white;
    border: none;
    border-radius: 8px;
@@ -363,7 +332,7 @@ watch(() => props.socket, (newSocket) => {
  }
  
  .control-button:hover {
-   background-color: #e4afb0;
+   background-color: #8bc064;
    transform: translateY(-1px);
    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
  }
@@ -371,30 +340,27 @@ watch(() => props.socket, (newSocket) => {
  .custom-word-input {
    display: flex;
    gap: 8px;
-   background-color: #fff;
+   background-color: #7b7b7d;
    padding: 6px;
-   border-radius: 8px;
-   border: 1px solid #e4afb0;
  }
  
  .custom-word-input input {
-   padding: 8px 12px;
-   border: 1px solid #e4afb0;
+   border: none;
    border-radius: 6px;
    font-size: 14px;
-   color: #9a7787;
+   color: #353537;
    background-color: #fff;
    min-width: 150px;
  }
  
  .custom-word-input input:focus {
    outline: none;
-   border-color: #9a7787;
+   border-color: #6db432;
  }
  
  .custom-word-input button {
    padding: 8px 16px;
-   background-color: #9a7787;
+   background-color: #6db432;
    color: white;
    border: none;
    border-radius: 6px;
@@ -405,7 +371,7 @@ watch(() => props.socket, (newSocket) => {
  }
  
  .custom-word-input button:hover {
-   background-color: #e4afb0;
+   background-color: #8bc064;
    transform: translateY(-1px);
  }
  

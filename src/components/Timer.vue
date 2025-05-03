@@ -92,7 +92,7 @@
    display: flex;
    flex-direction: column;
    min-width: 100px;
-   background-color: #fed7bf;
+   background-color: #353537;
    padding: 0.5rem;
    border-radius: 8px;
  }
@@ -101,12 +101,12 @@
    font-weight: 600;
    font-size: 1.1rem;
    text-align: center;
-   color: #9a7787;
+   color: #6db432;
  }
  
  .timer-progress-container {
    height: 6px;
-   background-color: #e4afb0;
+   background-color: #fff;
    border-radius: 3px;
    overflow: hidden;
    margin-top: 4px;
@@ -115,7 +115,7 @@
  .timer-progress-bar {
    height: 100%;
    transition: width 1s linear, background-color 1s;
-   background-color: #9a7787;
+   background-color: #6db432;
  }
  
  .timer-controls {
@@ -131,7 +131,7 @@
    padding: 4px 8px;
    border: none;
    border-radius: 4px;
-   background-color: #9a7787;
+   background-color: #6db432;
    color: white;
    cursor: pointer;
    font-size: 0.9rem;
@@ -139,7 +139,7 @@
  }
  
  .timer-button:hover {
-   background-color: #e4afb0;
+   background-color: #8bc064;
    transform: translateY(-1px);
  }
  
@@ -152,21 +152,20 @@
  .time-input {
    width: 60px;
    padding: 4px;
-   border: 1px solid #e4afb0;
-   border-radius: 4px;
+   border:none;
    text-align: center;
-   color: #9a7787;
+   color: #6db432;
    background-color: #fff;
  }
  
  .time-input:focus {
    outline: none;
-   border-color: #9a7787;
+   border-color: #6db432;
  }
  
  .time-input-label {
    font-size: 0.9rem;
-   color: #9a7787;
+   color: #6db432;
  }
  
  @media (max-width: 768px) {

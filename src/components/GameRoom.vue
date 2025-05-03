@@ -317,7 +317,7 @@
    flex-direction: column;
    height: 100vh;
    overflow: hidden;
-   background-color: #fff;
+   background-color: #353537;
  }
  
  .game-header {
@@ -325,9 +325,8 @@
    justify-content: space-between;
    align-items: center;
    padding: 1rem;
-   background-color: #fed7bf;
-   border-bottom: 1px solid #e4afb0;
-   box-shadow: 0 2px 4px rgba(154, 119, 135, 0.1);
+   background-color: #353537;
+   border-bottom: 1px solid #4b4a4a;
  }
  
  .room-info {
@@ -340,25 +339,25 @@
    font-size: 1.5rem;
    font-weight: 600;
    margin: 0;
-   color: #9a7787;
+   color: #6db432;
  }
  
  .current-drawer {
-   padding: 0.5rem 1rem;
-   background-color: #e4afb0;
-   border-radius: 6px;
-   font-weight: 500;
-   color: #fff;
+   padding: 2px 8px;
+   border-radius: 4px;
+   background-color: #7b7b7d;
+   font-weight: 400;
+   color: white;
  }
  .timer {
-   color: #fff;
+   color: #353537;
  }
  
  .game-content {
    display: flex;
    flex: 1;
    overflow: hidden;
-   background-color: #fff;
+   background-color: #353537;
  }
  
  .game-main {
@@ -367,15 +366,15 @@
    flex-direction: column;
    padding: 1rem;
    overflow: hidden;
-   background-color: #fff;
+   background-color: #353537;
  }
  
  .game-sidebar {
    width: 300px;
    display: flex;
    flex-direction: column;
-   border-left: 1px solid #e4afb0;
-   background-color: #fff;
+   border-left: 1px solid #353537;
+   background-color: #353537;
  }
  
  @media (max-width: 768px) {
@@ -386,7 +385,6 @@
    .game-sidebar {
      width: 100%;
      border-left: none;
-     border-top: 1px solid #e4afb0;
      height: 40vh;
    }
    
