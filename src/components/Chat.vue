@@ -36,7 +36,7 @@ watch(() => props.messages.length, async () => {
     
     <div class="chat-messages" ref="chatContainer">
       <div 
-        v-for="(message, index) in messages.filter(m => !m.isSystemMessage)" 
+        v-for="(message, index) in messages" 
         :key="index"
         class="message"
         :class="{
@@ -44,7 +44,7 @@ watch(() => props.messages.length, async () => {
           'own-message': message.username === 'You'
         }"
       >
-        <span class="message-username"  v-if="!message.isSystemMessage">
+        <span class="message-username" v-if="!message.isSystemMessage">
           {{ message.username }}:
         </span>
         <span class="message-content">{{ message.message }}</span>
@@ -70,113 +70,110 @@ watch(() => props.messages.length, async () => {
 .chat-component {
   display: flex;
   flex-direction: column;
-  height: 50%;
-  border-top: 1px solid #e4afb0;
+  height: 100%;
   background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 3px solid #ffd700;
+  overflow: hidden;
 }
 
 .chat-header {
-  padding: 0.75rem 1rem;
-  background-color: #fed7bf;
-  border-bottom: 1px solid #e4afb0;
+  background-color: #ff6b6b;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 2px solid #ffd700;
 }
 
 .chat-header h3 {
   margin: 0;
-  font-size: 1rem;
-  color: #9a7787;
-  font-weight: 600;
+  color: white;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .chat-messages {
   flex: 1;
+  padding: 15px;
   overflow-y: auto;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  background-color: #f0f8ff;
 }
 
 .message {
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  background-color: #fed7bf;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
   max-width: 80%;
-  word-break: break-word;
+  word-wrap: break-word;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.system-message {
+  background-color: #ffd700;
+  color: #333;
+  text-align: center;
+  margin: 10px auto;
+  padding: 8px 15px;
+  border-radius: 15px;
+  font-style: italic;
+  border: 2px solid #ff6b6b;
 }
 
 .own-message {
-  background-color: #9a7787;
+  background-color: #1e90ff;
   color: white;
-  align-self: flex-end;
+  margin-left: auto;
+  border: 2px solid #ffd700;
 }
 
 .message-username {
-  font-weight: 500;
-  margin-right: 0.5rem;
-}
-
-.message-content {
-  word-break: break-word;
+  font-weight: bold;
+  margin-right: 5px;
+  color: #ff6b6b;
 }
 
 .chat-input {
-  padding: 0.75rem;
-  background-color: #fff;
-  border-top: 1px solid #e4afb0;
   display: flex;
-  gap: 0.5rem;
+  padding: 15px;
+  background-color: #fff;
+  border-top: 2px solid #ffd700;
 }
 
 .chat-input input {
   flex: 1;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #e4afb0;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  color: #9a7787;
+  padding: 10px;
+  border: 2px solid #ffd700;
+  border-radius: 8px;
+  margin-right: 10px;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .chat-input input:focus {
   outline: none;
-  border-color: #9a7787;
-}
-
-.chat-input input:disabled {
-  background-color: #f5f5f5;
-  cursor: not-allowed;
+  border-color: #ff6b6b;
 }
 
 .chat-input button {
-  padding: 0.5rem 1rem;
-  background-color: #9a7787;
+  padding: 10px 20px;
+  background-color: #ff6b6b;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  border: 2px solid #ffd700;
 }
 
-.chat-input button:hover:not(:disabled) {
-  background-color: #e4afb0;
-  transform: translateY(-1px);
+.chat-input button:hover {
+  transform: scale(1.05);
+  background-color: #ff8c8c;
 }
 
 .chat-input button:disabled {
-  background-color: #ccc;
+  opacity: 0.6;
   cursor: not-allowed;
-}
-
-@media (max-width: 768px) {
-  .chat-component {
-    height: auto;
-    min-height: 200px;
-  }
-  
-  .message {
-    max-width: 90%;
-  }
+  transform: none;
 }
 </style>

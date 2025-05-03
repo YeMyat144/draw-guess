@@ -37,56 +37,59 @@ const handleJoinRoom = (data: { username: string; roomId: string }) => {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fff;
-  color: #9a7787;
+  background: linear-gradient(135deg, #1e90ff 0%, #87ceeb 100%);
+  color: #333;
   line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 #app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
   width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.join-container {
-  flex: 1;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.join-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
   padding: 2rem;
-  background-color: #fff;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 3px solid #ffd700;
 }
 
 .app-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: #9a7787;
+  font-size: 3rem;
+  color: #ff6b6b;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
   text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 2px;
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 0.5rem;
+  .app-container {
+    padding: 10px;
+  }
+  
+  .join-container {
+    padding: 1rem;
   }
   
   .app-title {

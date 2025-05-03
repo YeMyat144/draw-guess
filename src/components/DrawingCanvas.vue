@@ -271,176 +271,117 @@ watch(() => props.socket, (newSocket) => {
  </template>
  
  <style scoped>
- .drawing-container {
+ .canvas-wrapper {
    position: relative;
    width: 100%;
    height: 100%;
-   display: flex;
-   flex-direction: column;
    background-color: #fff;
-   border-radius: 12px;
+   border-radius: 15px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   border: 3px solid #ffd700;
    overflow: hidden;
-   box-shadow: 0 4px 6px rgba(154, 119, 135, 0.1);
-   border: 1px solid #e4afb0;
  }
  
- .drawing-canvas {
-   flex: 1;
-   width: 100%;
-   height: calc(100% - 70px);
-   background-color: #fff;
-   touch-action: none;
+ canvas {
    display: block;
-   margin: 0;
-   padding: 0;
-   border: none;
-   cursor: crosshair;
+   background-color: white;
+   border-radius: 12px;
  }
  
- .drawing-controls {
+ .tools {
+   position: absolute;
+   bottom: 20px;
+   left: 20px;
    display: flex;
-   gap: 8px;
-   height: 70px;
-   padding: 12px;
-   background-color: #fed7bf;
-   border-top: 1px solid #e4afb0;
-   display: flex;
-   align-items: center;
+   gap: 10px;
+   background-color: rgba(255, 255, 255, 0.9);
+   padding: 10px;
+   border-radius: 10px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+   border: 2px solid #ff6b6b;
  }
  
  .color-picker {
    display: flex;
-   gap: 8px;
-   background-color: #fff;
-   padding: 6px;
-   border-radius: 8px;
-   border: 1px solid #e4afb0;
+   gap: 5px;
  }
  
- .color-button {
-   width: 28px;
-   height: 28px;
+ .color-option {
+   width: 30px;
+   height: 30px;
    border-radius: 50%;
-   border: 2px solid transparent;
    cursor: pointer;
-   transition: all 0.2s ease;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   border: 2px solid #ffd700;
+   transition: transform 0.2s ease;
  }
  
- .color-button:hover {
+ .color-option:hover {
    transform: scale(1.1);
-   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
  }
  
- .color-button.active {
-   border-color: #9a7787;
+ .color-option.selected {
+   border: 3px solid #ff6b6b;
    transform: scale(1.1);
-   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
  }
  
- .line-width-control {
+ .size-control {
    display: flex;
    align-items: center;
-   padding: 6px 12px;
+   gap: 5px;
  }
  
- .line-width-control input {
-   width: 7rem;
-   accent-color: #9a7787;
+ .size-control input {
+   width: 100px;
+   accent-color: #ff6b6b;
  }
  
- .control-button {
+ .controls {
+   display: flex;
+   gap: 10px;
+ }
+ 
+ button {
    padding: 8px 16px;
-   background-color: #9a7787;
-   color: white;
    border: none;
    border-radius: 8px;
    cursor: pointer;
-   font-size: 14px;
-   font-weight: 500;
-   transition: all 0.2s ease;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   font-weight: bold;
+   transition: all 0.3s ease;
+   font-family: 'Comic Sans MS', cursive, sans-serif;
  }
  
- .control-button:hover {
-   background-color: #e4afb0;
-   transform: translateY(-1px);
-   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+ button:hover {
+   transform: scale(1.05);
+ }
+ 
+ .clear-button {
+   background-color: #ff6b6b;
+   color: white;
+   border: 2px solid #ffd700;
  }
  
  .custom-word-input {
-   display: flex;
-   gap: 8px;
-   background-color: #fff;
-   padding: 6px;
-   border-radius: 8px;
-   border: 1px solid #e4afb0;
+   position: absolute;
+   top: 20px;
+   left: 20px;
+   background-color: rgba(255, 255, 255, 0.9);
+   padding: 10px;
+   border-radius: 10px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+   border: 2px solid #ff6b6b;
  }
  
  .custom-word-input input {
-   padding: 8px 12px;
-   border: 1px solid #e4afb0;
-   border-radius: 6px;
-   font-size: 14px;
-   color: #9a7787;
-   background-color: #fff;
-   min-width: 150px;
- }
- 
- .custom-word-input input:focus {
-   outline: none;
-   border-color: #9a7787;
+   padding: 8px;
+   border: 2px solid #ffd700;
+   border-radius: 5px;
+   margin-right: 10px;
+   font-family: 'Comic Sans MS', cursive, sans-serif;
  }
  
  .custom-word-input button {
-   padding: 8px 16px;
-   background-color: #9a7787;
+   background-color: #4CAF50;
    color: white;
-   border: none;
-   border-radius: 6px;
-   cursor: pointer;
-   font-size: 14px;
-   font-weight: 500;
-   transition: all 0.2s ease;
- }
- 
- .custom-word-input button:hover {
-   background-color: #e4afb0;
-   transform: translateY(-1px);
- }
- 
- @media (max-width: 768px) {
-   .drawing-controls {
-     height: auto;
-     padding: 8px;
-     gap: 8px;
-   }
-   
-   .color-button {
-     width: 24px;
-     height: 24px;
-   }
-   
-   .control-button {
-     padding: 6px 12px;
-     font-size: 12px;
-   }
-   
-   .custom-word-input {
-     width: 100%;
-   }
-   
-   .custom-word-input input {
-     flex: 1;
-     min-width: 0;
-   }
-   
-   .line-width-control {
-     width: 50%;
-   }
-   
-   .line-width-control input {
-     width: 100%;
-   }
+   border: 2px solid #ffd700;
  }
  </style>

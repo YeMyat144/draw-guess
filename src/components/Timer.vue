@@ -91,101 +91,121 @@ const handleTimeChange = (event: Event) => {
 .timer {
   display: flex;
   flex-direction: column;
-  min-width: 100px;
-  background-color: #fed7bf;
-  padding: 0.5rem;
-  border-radius: 8px;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 3px solid #ffd700;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .timer-display {
-  font-weight: 600;
-  font-size: 1.1rem;
-  text-align: center;
-  color: #9a7787;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ff6b6b;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0;
 }
 
-.timer-progress-container {
-  height: 6px;
-  background-color: #e4afb0;
-  border-radius: 3px;
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: #f0f8ff;
+  border-radius: 10px;
   overflow: hidden;
-  margin-top: 4px;
+  border: 2px solid #ffd700;
 }
 
-.timer-progress-bar {
+.progress-bar {
   height: 100%;
-  transition: width 1s linear, background-color 1s;
-  background-color: #9a7787;
+  transition: width 1s linear;
+  background: linear-gradient(90deg, #ff6b6b 0%, #ffd700 100%);
 }
 
-.timer-controls {
+.controls {
   display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .timer-button {
-  padding: 4px 8px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 4px;
-  background-color: #9a7787;
-  color: white;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
 .timer-button:hover {
-  background-color: #e4afb0;
-  transform: translateY(-1px);
+  transform: scale(1.05);
 }
 
-.time-input-container {
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.toggle-button {
+  background-color: #ff6b6b;
+  color: white;
+  border: 2px solid #ffd700;
+}
+
+.toggle-button:hover {
+  background-color: #ff8c8c;
 }
 
 .time-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.time-input label {
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.time-input input {
   width: 60px;
-  padding: 4px;
-  border: 1px solid #e4afb0;
-  border-radius: 4px;
+  padding: 5px;
+  border: 2px solid #ffd700;
+  border-radius: 5px;
   text-align: center;
-  color: #9a7787;
-  background-color: #fff;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
-.time-input:focus {
+.time-input input:focus {
   outline: none;
-  border-color: #9a7787;
+  border-color: #ff6b6b;
 }
 
-.time-input-label {
-  font-size: 0.9rem;
-  color: #9a7787;
+.restart-button {
+  background-color: #ffd700;
+  color: #333;
+  border: 2px solid #ff6b6b;
+}
+
+.restart-button:hover {
+  background-color: #ffeb3b;
 }
 
 @media (max-width: 768px) {
   .timer {
-    min-width: 80px;
-    padding: 0.25rem;
+    padding: 10px;
   }
   
   .timer-display {
-    font-size: 1rem;
+    font-size: 2rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+    width: 100%;
   }
   
   .timer-button {
-    padding: 3px 6px;
-    font-size: 0.8rem;
-  }
-  
-  .time-input {
-    width: 50px;
+    width: 100%;
   }
 }
 </style>

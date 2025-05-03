@@ -57,112 +57,109 @@ const sortedPlayers = () => {
 
 <style scoped>
 .player-list {
-  display: flex;
-  flex-direction: column;
-  height: 50%;
-  background-color: #fff;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 3px solid #ffd700;
+  overflow: hidden;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
-.player-list-header {
-  padding: 0.75rem 1rem;
-  background-color: #fed7bf;
-  border-bottom: 1px solid #e4afb0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.player-list-header h3 {
+.player-list h3 {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 15px;
   margin: 0;
-  font-size: 1rem;
-  color: #9a7787;
-  font-weight: 600;
-}
-
-.drawer-controls {
-  display: flex;
-  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid #ffd700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .players {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0.5rem;
-  background-color: #fff;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f0f8ff;
 }
 
 .player {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
-  background-color: #fed7bf;
-  transition: all 0.2s ease;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid #ffd700;
+  transition: all 0.3s ease;
 }
 
 .player:hover {
-  background-color: #e4afb0;
-  transform: translateX(4px);
+  transform: scale(1.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.player.is-drawer {
-  background-color: #9a7787;
-  border-left: 3px solid #e4afb0;
-  color: #fff;
+.current-player {
+  background-color: #1e90ff;
+  color: white;
+  border-color: #ffd700;
 }
 
-.player.current-player {
-  background-color: #e4afb0;
-  border-left: 3px solid #9a7787;
-  color: #fff;
+.is-drawer {
+  background-color: #ffd700;
+  color: #333;
+  border-color: #ff6b6b;
 }
 
 .player-info {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  gap: 10px;
 }
 
 .player-name {
-  font-weight: 500;
+  font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 5px;
 }
 
 .drawer-badge {
-  font-size: 0.7rem;
-  background-color: #9a7787;
+  background-color: #ff6b6b;
   color: white;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  border: 1px solid #ffd700;
 }
 
 .player-score {
-  font-weight: 600;
-  color: inherit;
+  font-weight: bold;
+  color: #ff6b6b;
 }
 
 .give-turn-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.8rem;
-  background-color: #9a7787;
+  padding: 6px 12px;
+  background-color: #ff6b6b;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  border: 2px solid #ffd700;
 }
 
 .give-turn-btn:hover {
-  background-color: #e4afb0;
-  transform: translateY(-1px);
+  transform: scale(1.05);
+  background-color: #ff8c8c;
+}
+
+.give-turn-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .give-turn-icon {
@@ -181,13 +178,21 @@ const sortedPlayers = () => {
 }
 
 @media (max-width: 768px) {
-  .player-list {
-    height: auto;
-    min-height: 200px;
+  .player {
+    padding: 8px 12px;
   }
   
-  .player {
-    padding: 0.5rem 0.75rem;
+  .player-name {
+    font-size: 0.9em;
+  }
+  
+  .player-score {
+    font-size: 0.9em;
+  }
+  
+  .give-turn-btn {
+    padding: 4px 8px;
+    font-size: 0.9em;
   }
 }
 </style>

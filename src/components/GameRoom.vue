@@ -315,8 +315,115 @@
    display: flex;
    flex-direction: column;
    height: 100vh;
-   overflow: hidden;
+   background: linear-gradient(135deg, #1e90ff 0%, #87ceeb 100%);
+   padding: 20px;
+   font-family: 'Comic Sans MS', cursive, sans-serif;
+ }
+ 
+ .game-container {
+   display: flex;
+   flex: 1;
+   gap: 20px;
+   margin-top: 20px;
+ }
+ 
+ .left-panel {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   width: 300px;
+ }
+ 
+ .canvas-container {
+   flex: 1;
    background-color: #fff;
+   border-radius: 15px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   padding: 10px;
+   border: 3px solid #ffd700;
+ }
+ 
+ .right-panel {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+   width: 300px;
+ }
+ 
+ .game-info {
+   background-color: #ff6b6b;
+   padding: 15px;
+   border-radius: 10px;
+   color: white;
+   text-align: center;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   border: 2px solid #ffd700;
+ }
+ 
+ .word-display {
+   font-size: 1.5em;
+   font-weight: bold;
+   margin: 10px 0;
+   color: #ffd700;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+ }
+ 
+ .controls {
+   display: flex;
+   gap: 10px;
+   justify-content: center;
+   margin-top: 10px;
+ }
+ 
+ button {
+   padding: 8px 16px;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   font-weight: bold;
+   transition: all 0.3s ease;
+   font-family: 'Comic Sans MS', cursive, sans-serif;
+ }
+ 
+ button:hover {
+   transform: scale(1.05);
+ }
+ 
+ button:disabled {
+   opacity: 0.6;
+   cursor: not-allowed;
+ }
+ 
+ .primary-button {
+   background-color: #ff6b6b;
+   color: white;
+   border: 2px solid #ffd700;
+ }
+ 
+ .secondary-button {
+   background-color: #4CAF50;
+   color: white;
+   border: 2px solid #ffd700;
+ }
+ 
+ .tertiary-button {
+   background-color: #ffd700;
+   color: #333;
+   border: 2px solid #ff6b6b;
+ }
+ 
+ .status {
+   margin-top: 10px;
+   font-size: 0.9em;
+   color: #ffd700;
+ }
+ 
+ .connected {
+   color: #4CAF50;
+ }
+ 
+ .disconnected {
+   color: #ff6b6b;
  }
  
  .game-header {
