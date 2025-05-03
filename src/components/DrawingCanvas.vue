@@ -3,11 +3,11 @@
  import type { Socket } from 'socket.io-client';
  
  const props = defineProps<{
-   isDrawer: boolean;
-   socket: Socket | null;
-   isPaused?: boolean;
-   roundTime?: number;
- }>();
+  isDrawer: boolean;
+  socket: Socket | null;  // Not a ref anymore, just the Socket object
+  isPaused?: boolean;
+  roundTime?: number;
+}>();
  
  const emit = defineEmits(['drawing', 'clear-canvas', 'toggle-timer', 'set-round-time', 'restart-round', 'set-custom-word']);
  
@@ -20,44 +20,43 @@
  const showCustomWordInput = ref(false);
  
  
+ 
  // Initialize canvas
  onMounted(() => {
-   if (canvasRef.value) {
-     const canvas = canvasRef.value;
-     const context = canvas.getContext('2d');
-     
-     if (context) {
-       canvasContext.value = context;
-       resizeCanvas();
-       
-       // Setup event listeners for window resize
-       window.addEventListener('resize', resizeCanvas);
-       
-       // Set initial canvas style
-       canvasContext.value.lineCap = 'round';
-       canvasContext.value.lineJoin = 'round';
-       canvasContext.value.strokeStyle = selectedColor.value;
-       canvasContext.value.lineWidth = lineWidth.value;
-       
-       // Fill canvas with white background
-       canvasContext.value.fillStyle = 'white';
-       canvasContext.value.fillRect(0, 0, canvas.width, canvas.height);
-     }
-   }
-   
-   // Setup socket listeners for remote drawing
-   if (props.socket) {
-     props.socket.on('drawing', (data: { x: number; y: number; type: string }) => {
-       if (!props.isDrawer) {  // Only handle drawing events if not the drawer
-         draw(data.x, data.y, data.type);
-       }
-     });
-     
-     props.socket.on('clear-canvas', () => {
-       clearCanvas();
-     });
-   }
- });
+  if (canvasRef.value) {
+    const canvas = canvasRef.value;
+    const context = canvas.getContext('2d');
+    
+    if (context) {
+      canvasContext.value = context;
+      resizeCanvas();
+      
+      window.addEventListener('resize', resizeCanvas);
+      
+      canvasContext.value.lineCap = 'round';
+      canvasContext.value.lineJoin = 'round';
+      canvasContext.value.strokeStyle = selectedColor.value;
+      canvasContext.value.lineWidth = lineWidth.value;
+      
+      canvasContext.value.fillStyle = 'white';
+      canvasContext.value.fillRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+});
+
+// Watch for socket becoming available
+watch(() => props.socket, (newSocket) => {
+  if (newSocket) {
+    newSocket.on('drawing', (data: { x: number; y: number; type: string }) => {
+      draw(data.x, data.y, data.type);
+    });
+
+    newSocket.on('clear-canvas', () => {
+      clearCanvas();
+    });
+  }
+});
+
  
  // Clean up event listeners when component is unmounted
  onBeforeUnmount(() => {
@@ -175,7 +174,6 @@
      y: clientY - rect.top
    };
  };
-
  
  // Change line width
  const setLineWidth = (width: number) => {
@@ -200,9 +198,7 @@
    clearCanvas();
    emit('clear-canvas');
  };
- 
 
- 
  // Handle custom word input
  const toggleCustomWordInput = () => {
    showCustomWordInput.value = !showCustomWordInput.value;
