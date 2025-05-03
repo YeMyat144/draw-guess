@@ -94,34 +94,33 @@ const handleTimeChange = (event: Event) => {
   align-items: center;
   gap: 10px;
   padding: 15px;
-  background-color: white;
+  background-color: #fff;
   border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 3px solid #ffd700;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4afb0;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .timer-display {
   font-size: 2.5rem;
-  font-weight: bold;
-  color: #ff6b6b;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  color: #9a7787;
   margin: 0;
 }
 
 .progress-container {
   width: 100%;
   height: 20px;
-  background-color: #f0f8ff;
+  background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
-  border: 2px solid #ffd700;
+  border: 1px solid #e4afb0;
 }
 
 .progress-bar {
   height: 100%;
   transition: width 1s linear;
-  background: linear-gradient(90deg, #ff6b6b 0%, #ffd700 100%);
+  background: linear-gradient(90deg, #fed7bf 0%, #e4afb0 100%);
 }
 
 .controls {
@@ -135,23 +134,25 @@ const handleTimeChange = (event: Event) => {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  font-family: inherit;
 }
 
 .timer-button:hover {
-  transform: scale(1.05);
+  background-color: #e4afb0;
+  color: #fff;
 }
 
 .toggle-button {
-  background-color: #ff6b6b;
-  color: white;
-  border: 2px solid #ffd700;
+  background-color: #fed7bf;
+  color: #9a7787;
+  border: 1px solid #e4afb0;
 }
 
 .toggle-button:hover {
-  background-color: #ff8c8c;
+  background-color: #e4afb0;
+  color: #fff;
 }
 
 .time-input {
@@ -162,32 +163,33 @@ const handleTimeChange = (event: Event) => {
 }
 
 .time-input label {
-  color: #ff6b6b;
-  font-weight: bold;
+  color: #9a7787;
+  font-weight: 500;
 }
 
 .time-input input {
   width: 60px;
   padding: 5px;
-  border: 2px solid #ffd700;
+  border: 1px solid #e4afb0;
   border-radius: 5px;
   text-align: center;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  font-family: inherit;
 }
 
 .time-input input:focus {
   outline: none;
-  border-color: #ff6b6b;
+  border-color: #9a7787;
 }
 
 .restart-button {
-  background-color: #ffd700;
-  color: #333;
-  border: 2px solid #ff6b6b;
+  background-color: #fed7bf;
+  color: #9a7787;
+  border: 1px solid #e4afb0;
 }
 
 .restart-button:hover {
-  background-color: #ffeb3b;
+  background-color: #e4afb0;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
