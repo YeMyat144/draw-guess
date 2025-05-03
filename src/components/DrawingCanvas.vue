@@ -3,11 +3,11 @@
  import type { Socket } from 'socket.io-client';
  
  const props = defineProps<{
-  isDrawer: boolean;
-  socket: Socket | null;  // Not a ref anymore, just the Socket object
-  isPaused?: boolean;
-  roundTime?: number;
-}>();
+   isDrawer: boolean;
+   socket: Socket | null;
+   isPaused?: boolean;
+   roundTime?: number;
+ }>();
  
  const emit = defineEmits(['drawing', 'clear-canvas', 'toggle-timer', 'set-round-time', 'restart-round', 'set-custom-word']);
  
@@ -20,43 +20,42 @@
  const showCustomWordInput = ref(false);
  
  
- 
  // Initialize canvas
  onMounted(() => {
-  if (canvasRef.value) {
-    const canvas = canvasRef.value;
-    const context = canvas.getContext('2d');
-    
-    if (context) {
-      canvasContext.value = context;
-      resizeCanvas();
-      
-      window.addEventListener('resize', resizeCanvas);
-      
-      canvasContext.value.lineCap = 'round';
-      canvasContext.value.lineJoin = 'round';
-      canvasContext.value.strokeStyle = selectedColor.value;
-      canvasContext.value.lineWidth = lineWidth.value;
-      
-      canvasContext.value.fillStyle = 'white';
-      canvasContext.value.fillRect(0, 0, canvas.width, canvas.height);
-    }
-  }
-});
-
-// Watch for socket becoming available
-watch(() => props.socket, (newSocket) => {
-  if (newSocket) {
-    newSocket.on('drawing', (data: { x: number; y: number; type: string }) => {
-      draw(data.x, data.y, data.type);
-    });
-
-    newSocket.on('clear-canvas', () => {
-      clearCanvas();
-    });
-  }
-});
-
+   if (canvasRef.value) {
+     const canvas = canvasRef.value;
+     const context = canvas.getContext('2d');
+     
+     if (context) {
+       canvasContext.value = context;
+       resizeCanvas();
+       
+       // Setup event listeners for window resize
+       window.addEventListener('resize', resizeCanvas);
+       
+       // Set initial canvas style
+       canvasContext.value.lineCap = 'round';
+       canvasContext.value.lineJoin = 'round';
+       canvasContext.value.strokeStyle = selectedColor.value;
+       canvasContext.value.lineWidth = lineWidth.value;
+       
+       // Fill canvas with white background
+       canvasContext.value.fillStyle = 'white';
+       canvasContext.value.fillRect(0, 0, canvas.width, canvas.height);
+     }
+   }
+   
+   // Setup socket listeners for remote drawing
+   if (props.socket) {
+     props.socket.on('drawing', (data: { x: number; y: number; type: string }) => {
+       draw(data.x, data.y, data.type);
+     });
+     
+     props.socket.on('clear-canvas', () => {
+       clearCanvas();
+     });
+   }
+ });
  
  // Clean up event listeners when component is unmounted
  onBeforeUnmount(() => {
@@ -174,6 +173,7 @@ watch(() => props.socket, (newSocket) => {
      y: clientY - rect.top
    };
  };
+
  
  // Change line width
  const setLineWidth = (width: number) => {
@@ -198,7 +198,9 @@ watch(() => props.socket, (newSocket) => {
    clearCanvas();
    emit('clear-canvas');
  };
+ 
 
+ 
  // Handle custom word input
  const toggleCustomWordInput = () => {
    showCustomWordInput.value = !showCustomWordInput.value;
@@ -271,144 +273,176 @@ watch(() => props.socket, (newSocket) => {
  </template>
  
  <style scoped>
-.drawing-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e4afb0;
-  overflow: hidden;
-}
-
-.drawing-canvas {
-  width: 100%;
-  height: 100%;
-  cursor: crosshair;
-  background-color: #fff;
-}
-
-.drawing-controls {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: #fff;
-  border-top: 1px solid #e4afb0;
-}
-
-.line-width-control {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.line-width-control input {
-  width: 100px;
-}
-
-.color-picker {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.color-option {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid #e4afb0;
-  transition: all 0.25s ease;
-}
-
-.color-option:hover {
-  transform: scale(1.1);
-}
-
-.color-option.selected {
-  border: 2px solid #9a7787;
-}
-
-.clear-button {
-  padding: 0.5rem 1rem;
-  background-color: #fed7bf;
-  color: #9a7787;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.25s ease;
-  font-family: inherit;
-  border: 1px solid #e4afb0;
-}
-
-.clear-button:hover {
-  background-color: #e4afb0;
-  color: #fff;
-}
-
-.custom-word-input {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.custom-word-input input {
-  padding: 0.5rem;
-  border: 1px solid #e4afb0;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.25s ease;
-}
-
-.custom-word-input input:focus {
-  outline: none;
-  border-color: #9a7787;
-}
-
-.custom-word-input button {
-  padding: 0.5rem 1rem;
-  background-color: #fed7bf;
-  color: #9a7787;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.25s ease;
-  font-family: inherit;
-  border: 1px solid #e4afb0;
-}
-
-.custom-word-input button:hover {
-  background-color: #e4afb0;
-  color: #fff;
-}
-
-@media (max-width: 768px) {
-  .drawing-controls {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .line-width-control {
-    width: 100%;
-  }
-  
-  .color-picker {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .custom-word-input {
-    width: 100%;
-  }
-  
-  .custom-word-input input {
-    flex: 1;
-  }
-}
+ .drawing-container {
+   position: relative;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   background-color: #fff;
+   border-radius: 12px;
+   overflow: hidden;
+   box-shadow: 0 4px 6px rgba(154, 119, 135, 0.1);
+   border: 1px solid #e4afb0;
+ }
+ 
+ .drawing-canvas {
+   flex: 1;
+   width: 100%;
+   height: calc(100% - 70px);
+   background-color: #fff;
+   touch-action: none;
+   display: block;
+   margin: 0;
+   padding: 0;
+   border: none;
+   cursor: crosshair;
+ }
+ 
+ .drawing-controls {
+   display: flex;
+   gap: 8px;
+   height: 70px;
+   padding: 12px;
+   background-color: #fed7bf;
+   border-top: 1px solid #e4afb0;
+   display: flex;
+   align-items: center;
+ }
+ 
+ .color-picker {
+   display: flex;
+   gap: 8px;
+   background-color: #fff;
+   padding: 6px;
+   border-radius: 8px;
+   border: 1px solid #e4afb0;
+ }
+ 
+ .color-button {
+   width: 28px;
+   height: 28px;
+   border-radius: 50%;
+   border: 2px solid transparent;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .color-button:hover {
+   transform: scale(1.1);
+   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+ }
+ 
+ .color-button.active {
+   border-color: #9a7787;
+   transform: scale(1.1);
+   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+ }
+ 
+ .line-width-control {
+   display: flex;
+   align-items: center;
+   padding: 6px 12px;
+ }
+ 
+ .line-width-control input {
+   width: 7rem;
+   accent-color: #9a7787;
+ }
+ 
+ .control-button {
+   padding: 8px 16px;
+   background-color: #9a7787;
+   color: white;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   font-size: 14px;
+   font-weight: 500;
+   transition: all 0.2s ease;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .control-button:hover {
+   background-color: #e4afb0;
+   transform: translateY(-1px);
+   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+ }
+ 
+ .custom-word-input {
+   display: flex;
+   gap: 8px;
+   background-color: #fff;
+   padding: 6px;
+   border-radius: 8px;
+   border: 1px solid #e4afb0;
+ }
+ 
+ .custom-word-input input {
+   padding: 8px 12px;
+   border: 1px solid #e4afb0;
+   border-radius: 6px;
+   font-size: 14px;
+   color: #9a7787;
+   background-color: #fff;
+   min-width: 150px;
+ }
+ 
+ .custom-word-input input:focus {
+   outline: none;
+   border-color: #9a7787;
+ }
+ 
+ .custom-word-input button {
+   padding: 8px 16px;
+   background-color: #9a7787;
+   color: white;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   font-size: 14px;
+   font-weight: 500;
+   transition: all 0.2s ease;
+ }
+ 
+ .custom-word-input button:hover {
+   background-color: #e4afb0;
+   transform: translateY(-1px);
+ }
+ 
+ @media (max-width: 768px) {
+   .drawing-controls {
+     height: auto;
+     padding: 8px;
+     gap: 8px;
+   }
+   
+   .color-button {
+     width: 24px;
+     height: 24px;
+   }
+   
+   .control-button {
+     padding: 6px 12px;
+     font-size: 12px;
+   }
+   
+   .custom-word-input {
+     width: 100%;
+   }
+   
+   .custom-word-input input {
+     flex: 1;
+     min-width: 0;
+   }
+   
+   .line-width-control {
+     width: 50%;
+   }
+   
+   .line-width-control input {
+     width: 100%;
+   }
+ }
  </style>
