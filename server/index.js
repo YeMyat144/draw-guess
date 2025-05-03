@@ -6,7 +6,7 @@ import Fastify from 'fastify';
  const fastify = Fastify({ logger: true });
  await fastify.register(cors, {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.netlify.app']
+    ? ['https://drawnguess.vercel.app/']
     : '*',
   methods: ['GET', 'POST']
 });
@@ -14,7 +14,7 @@ import Fastify from 'fastify';
 const io = new Server(fastify.server, {
   cors: {
     origin: process.env.NODE_ENV === 'production'
-      ? ['https://your-frontend-domain.netlify.app']
+      ? ['https://drawnguess.vercel.app/']
       : '*',
     methods: ['GET', 'POST']
   }
