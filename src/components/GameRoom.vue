@@ -31,7 +31,6 @@
   onMounted(() => {
     // Connect to the socket server
     
-   socket = io(import.meta.env.VITE_SOCKET_URL) as Socket;
     socket = io('https://drawguess-backend.onrender.com', {
       transports: ['websocket'],
       reconnection: true,
