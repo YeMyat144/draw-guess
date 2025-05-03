@@ -48,7 +48,9 @@
    // Setup socket listeners for remote drawing
    if (props.socket) {
      props.socket.on('drawing', (data: { x: number; y: number; type: string }) => {
-       draw(data.x, data.y, data.type);
+       if (!props.isDrawer) {  // Only handle drawing events if not the drawer
+         draw(data.x, data.y, data.type);
+       }
      });
      
      props.socket.on('clear-canvas', () => {
