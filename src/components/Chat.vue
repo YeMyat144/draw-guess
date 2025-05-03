@@ -40,10 +40,11 @@ watch(() => props.messages.length, async () => {
         :key="index"
         class="message"
         :class="{
+          'system-message': message.isSystemMessage,
           'own-message': message.username === 'You'
         }"
       >
-        <span class="message-username">
+        <span class="message-username"  v-if="!message.isSystemMessage">
           {{ message.username }}:
         </span>
         <span class="message-content">{{ message.message }}</span>
