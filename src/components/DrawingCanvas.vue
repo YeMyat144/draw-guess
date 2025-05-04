@@ -4,7 +4,7 @@
  
  const props = defineProps<{
   isDrawer: boolean;
-  socket: Socket | null;  // Not a ref anymore, just the Socket object
+  socket: Socket | null;
   isPaused?: boolean;
   roundTime?: number;
 }>();
@@ -18,8 +18,14 @@
  const lineWidth = ref(5);
  const customWord = ref('');
  const showCustomWordInput = ref(false);
+
+ // Fixed canvas dimensions
+ const CANVAS_WIDTH = 800;
+ const CANVAS_HEIGHT = 600;
  
- 
+ // Scale factors for coordinate mapping
+ const scaleX = ref(1);
+ const scaleY = ref(1);
  
  // Initialize canvas
  onMounted(() => {
@@ -29,17 +35,24 @@
     
     if (context) {
       canvasContext.value = context;
-      resizeCanvas();
       
-      window.addEventListener('resize', resizeCanvas);
+      // Set initial canvas size
+      canvas.width = CANVAS_WIDTH;
+      canvas.height = CANVAS_HEIGHT;
       
+      // Set up canvas styles
       canvasContext.value.lineCap = 'round';
       canvasContext.value.lineJoin = 'round';
       canvasContext.value.strokeStyle = selectedColor.value;
       canvasContext.value.lineWidth = lineWidth.value;
       
+      // Fill white background
       canvasContext.value.fillStyle = 'white';
-      canvasContext.value.fillRect(0, 0, canvas.width, canvas.height);
+      canvasContext.value.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      
+      // Initial resize
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
     }
   }
 });
@@ -56,357 +69,318 @@ watch(() => props.socket, (newSocket) => {
     });
   }
 });
+ 
+// Clean up event listeners
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', resizeCanvas);
+});
+ 
+// Resize canvas while maintaining aspect ratio
+const resizeCanvas = () => {
+  if (!canvasRef.value || !canvasContext.value) return;
+  
+  const canvas = canvasRef.value;
+  const container = canvas.parentElement;
+  
+  if (container) {
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight - 50; // Space for controls
+    
+    // Calculate scale to fit container while maintaining aspect ratio
+    const containerRatio = containerWidth / containerHeight;
+    const canvasRatio = CANVAS_WIDTH / CANVAS_HEIGHT;
+    
+    let width, height;
+    if (containerRatio > canvasRatio) {
+      // Container is wider than canvas ratio
+      height = containerHeight;
+      width = height * canvasRatio;
+    } else {
+      // Container is taller than canvas ratio
+      width = containerWidth;
+      height = width / canvasRatio;
+    }
+    
+    // Update scale factors
+    scaleX.value = CANVAS_WIDTH / width;
+    scaleY.value = CANVAS_HEIGHT / height;
+    
+    // Set display size (CSS pixels)
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+  }
+};
+ 
+// Convert screen coordinates to canvas coordinates
+const getCanvasCoordinates = (clientX: number, clientY: number) => {
+  if (!canvasRef.value) return { x: 0, y: 0 };
+  
+  const canvas = canvasRef.value;
+  const rect = canvas.getBoundingClientRect();
+  
+  // Calculate position in CSS pixels relative to canvas
+  const x = clientX - rect.left;
+  const y = clientY - rect.top;
+  
+  // Convert to canvas coordinates
+  return {
+    x: x * scaleX.value,
+    y: y * scaleY.value
+  };
+};
+ 
+// Handle canvas mouse/touch events
+const startDrawing = (e: MouseEvent | TouchEvent) => {
+  if (!props.isDrawer || props.isPaused) return;
+  
+  isDrawing.value = true;
+  
+  const coords = getEventCoordinates(e);
+  const { x, y } = getCanvasCoordinates(coords.x, coords.y);
+  
+  if (canvasContext.value) {
+    canvasContext.value.beginPath();
+    canvasContext.value.moveTo(x, y);
+    
+    emit('drawing', { x, y, type: 'start' });
+  }
+};
+ 
+const stopDrawing = () => {
+  if (!props.isDrawer) return;
+  
+  isDrawing.value = false;
+  emit('drawing', { x: 0, y: 0, type: 'end' });
+};
+ 
+const draw = (x: number, y: number, type: string) => {
+  if (!canvasContext.value) return;
+  
+  if (type === 'start') {
+    canvasContext.value.beginPath();
+    canvasContext.value.moveTo(x, y);
+  } else if (type === 'move') {
+    canvasContext.value.lineTo(x, y);
+    canvasContext.value.stroke();
+  }
+};
+ 
+const handleDrawing = (e: MouseEvent | TouchEvent) => {
+  if (!props.isDrawer || !isDrawing.value || props.isPaused) return;
+  
+  const coords = getEventCoordinates(e);
+  const { x, y } = getCanvasCoordinates(coords.x, coords.y);
+  
+  if (canvasContext.value) {
+    canvasContext.value.lineTo(x, y);
+    canvasContext.value.stroke();
+    
+    emit('drawing', { x, y, type: 'move' });
+  }
+};
+ 
+// Get coordinates from mouse or touch event
+const getEventCoordinates = (e: MouseEvent | TouchEvent) => {
+  if ('touches' in e) {
+    return {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY
+    };
+  }
+  return {
+    x: e.clientX,
+    y: e.clientY
+  };
+};
+ 
+// Clear canvas
+const clearCanvas = () => {
+  if (!canvasRef.value || !canvasContext.value) return;
+  
+  canvasContext.value.fillStyle = 'white';
+  canvasContext.value.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+};
+ 
+// Handle clear canvas button click
+const handleClearCanvas = () => {
+  clearCanvas();
+  emit('clear-canvas');
+};
 
+// Handle custom word input
+const toggleCustomWordInput = () => {
+  showCustomWordInput.value = !showCustomWordInput.value;
+};
  
- // Clean up event listeners when component is unmounted
- onBeforeUnmount(() => {
-   window.removeEventListener('resize', resizeCanvas);
- });
+const handleSetCustomWord = () => {
+  if (customWord.value.trim()) {
+    emit('set-custom-word', customWord.value.trim());
+    customWord.value = '';
+    showCustomWordInput.value = false;
+  }
+};
  
- // Resize canvas to fit container
- const resizeCanvas = () => {
-   if (!canvasRef.value || !canvasContext.value) return;
-   
-   const canvas = canvasRef.value;
-   const container = canvas.parentElement;
-   
-   if (container) {
-     // Save current drawing
-     const imageData = canvasContext.value.getImageData(0, 0, canvas.width, canvas.height);
-     
-     // Resize canvas
-     canvas.width = container.clientWidth;
-     canvas.height = container.clientHeight - 50; // Allow space for controls
-     
-     // Restore drawing if we had something
-     canvasContext.value.putImageData(imageData, 0, 0);
-     
-     // Reset styles that get cleared on resize
-     canvasContext.value.lineCap = 'round';
-     canvasContext.value.lineJoin = 'round';
-     canvasContext.value.strokeStyle = selectedColor.value;
-     canvasContext.value.lineWidth = lineWidth.value;
-     
-     // Make sure background is white
-     if (imageData.width === 0) {
-       canvasContext.value.fillStyle = 'white';
-       canvasContext.value.fillRect(0, 0, canvas.width, canvas.height);
-     }
-   }
- };
+// Watch for changes in isDrawer prop
+watch(() => props.isDrawer, (newValue) => {
+  if (!newValue) {
+    isDrawing.value = false;
+  }
+});
  
- // Handle canvas mouse/touch events
- const startDrawing = (e: MouseEvent | TouchEvent) => {
-   if (!props.isDrawer || props.isPaused) return;
-   
-   isDrawing.value = true;
-   
-   const { x, y } = getEventPosition(e);
-   
-   // Start new path
-   if (canvasContext.value) {
-     canvasContext.value.beginPath();
-     canvasContext.value.moveTo(x, y);
-     
-     // Emit drawing event
-     emit('drawing', { x, y, type: 'start' });
-   }
- };
+// Watch for changes in isPaused prop
+watch(() => props.isPaused, (newValue) => {
+  if (newValue) {
+    isDrawing.value = false;
+  }
+});
+</script>
  
- const stopDrawing = () => {
-   if (!props.isDrawer) return;
-   
-   isDrawing.value = false;
-   
-   // Emit drawing event
-   emit('drawing', { x: 0, y: 0, type: 'end' });
- };
+<template>
+  <div class="drawing-container">
+    <div class="drawing-controls" v-if="isDrawer">
+      <button class="control-button" @click="handleClearCanvas">Clear</button>
+      
+      <button class="control-button" @click="toggleCustomWordInput">
+        Word
+      </button>
+      <div v-if="showCustomWordInput" class="custom-word-input">
+        <input
+          type="text"
+          v-model="customWord"
+          placeholder="Enter custom word"
+          @keyup.enter="handleSetCustomWord"
+        />
+        <button @click="handleSetCustomWord">Set</button>
+      </div>
+    </div>
+    <canvas
+      ref="canvasRef"
+      class="drawing-canvas"
+      @mousedown="startDrawing"
+      @mousemove="handleDrawing"
+      @mouseup="stopDrawing"
+      @mouseleave="stopDrawing"
+      @touchstart.prevent="startDrawing"
+      @touchmove.prevent="handleDrawing"
+      @touchend.prevent="stopDrawing"
+    ></canvas>
+  </div>
+</template>
  
- const draw = (x: number, y: number, type: string) => {
-   if (!canvasContext.value) return;
-   
-   if (type === 'start') {
-     canvasContext.value.beginPath();
-     canvasContext.value.moveTo(x, y);
-   } else if (type === 'move') {
-     canvasContext.value.lineTo(x, y);
-     canvasContext.value.stroke();
-   } else if (type === 'end') {
-     // End of stroke
-   }
- };
+<style scoped>
+.drawing-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #353537;
+  position: relative;
+}
  
- const handleDrawing = (e: MouseEvent | TouchEvent) => {
-   if (!props.isDrawer || !isDrawing.value || props.isPaused) return;
-   
-   const { x, y } = getEventPosition(e);
-   
-   if (canvasContext.value) {
-     canvasContext.value.lineTo(x, y);
-     canvasContext.value.stroke();
-     
-     // Emit drawing event
-     emit('drawing', { x, y, type: 'move' });
-   }
- };
- 
- // Get mouse/touch position relative to canvas
- const getEventPosition = (e: MouseEvent | TouchEvent) => {
-   if (!canvasRef.value) return { x: 0, y: 0 };
-   
-   const canvas = canvasRef.value;
-   const rect = canvas.getBoundingClientRect();
-   
-   let clientX, clientY;
-   
-   if ('touches' in e) {
-     // Touch event
-     clientX = e.touches[0].clientX;
-     clientY = e.touches[0].clientY;
-   } else {
-     // Mouse event
-     clientX = e.clientX;
-     clientY = e.clientY;
-   }
-   
-   return {
-     x: clientX - rect.left,
-     y: clientY - rect.top
-   };
- };
- 
- // Change line width
- const setLineWidth = (width: number) => {
-   lineWidth.value = width;
-   
-   if (canvasContext.value) {
-     canvasContext.value.lineWidth = width;
-   }
- };
- 
- // Clear canvas
- const clearCanvas = () => {
-   if (!canvasRef.value || !canvasContext.value) return;
-   
-   const canvas = canvasRef.value;
-   canvasContext.value.fillStyle = 'white';
-   canvasContext.value.fillRect(0, 0, canvas.width, canvas.height);
- };
- 
- // Handle clear canvas button click
- const handleClearCanvas = () => {
-   clearCanvas();
-   emit('clear-canvas');
- };
+.drawing-controls {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  align-items: center;
+  padding: 8px;
+  background-color: #353537;
+}
 
- // Handle custom word input
- const toggleCustomWordInput = () => {
-   showCustomWordInput.value = !showCustomWordInput.value;
- };
+.drawing-canvas {
+  flex: 1;
+  background-color: white;
+  touch-action: none;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  cursor: crosshair;
+}
  
- const handleSetCustomWord = () => {
-   if (customWord.value.trim()) {
-     emit('set-custom-word', customWord.value.trim());
-     customWord.value = '';
-     showCustomWordInput.value = false;
-   }
- };
+.control-button {
+  padding: 4px 8px;
+  background-color: #6db432;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
  
- // Watch for changes in isDrawer prop
- watch(() => props.isDrawer, (newValue) => {
-   if (!newValue) {
-     // If no longer the drawer, stop drawing
-     isDrawing.value = false;
-   }
- });
+.control-button:hover {
+  background-color: #8bc064;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
  
- // Watch for changes in isPaused prop
- watch(() => props.isPaused, (newValue) => {
-   if (newValue) {
-     // If paused, stop drawing
-     isDrawing.value = false;
-   }
- });
- </script>
+.custom-word-input {
+  display: flex;
+  gap: 8px;
+  background-color: #353537;
+  padding: 6px;
+}
  
- <template>
-   <div class="drawing-container">
-     <canvas
-       ref="canvasRef"
-       class="drawing-canvas"
-       @mousedown="startDrawing"
-       @mousemove="handleDrawing"
-       @mouseup="stopDrawing"
-       @mouseleave="stopDrawing"
-       @touchstart="startDrawing"
-       @touchmove="handleDrawing"
-       @touchend="stopDrawing"
-     ></canvas>
-     <div class="drawing-controls" v-if="isDrawer">
-       <div class="line-width-control">
-         <input
-           type="range"
-           min="1"
-           max="20"
-           v-model="lineWidth"
-           @input="setLineWidth(Number(lineWidth))"
-         />
-       </div>
-       <button class="control-button" @click="handleClearCanvas">Clear</button>
-       
-       <button class="control-button" @click="toggleCustomWordInput">
-         Word
-       </button>
-       <div v-if="showCustomWordInput" class="custom-word-input">
-         <input
-           type="text"
-           v-model="customWord"
-           placeholder="Enter custom word"
-           @keyup.enter="handleSetCustomWord"
-         />
-         <button @click="handleSetCustomWord">Set</button>
-       </div>
-     </div>
-   </div>
- </template>
+.custom-word-input input {
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #353537;
+  background-color: #fff;
+  min-width: 150px;
+}
  
- <style scoped>
- .drawing-container {
-   position: relative;
-   width: 100%;
-   height: 100%;
-   display: flex;
-   flex-direction: column;
-   background-color: #7b7b7d;
-   border-radius: 12px;
-   overflow: hidden;
-   box-shadow: 0 4px 6px rgba(154, 119, 135, 0.1);
-   border: 1px solid #353537;
- }
+.custom-word-input input:focus {
+  outline: none;
+  border-color: #6db432;
+}
  
- .drawing-canvas {
-   flex: 1;
-   width: 100%;
-   height: calc(100% - 70px);
-   background-color: white;
-   touch-action: none;
-   display: block;
-   margin: 0;
-   padding: 0;
-   border: none;
-   cursor: crosshair;
- }
+.custom-word-input button {
+  padding: 8px 16px;
+  background-color: #6db432;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
  
- .drawing-controls {
-   display: flex;
-   gap: 8px;
-   height: 70px;
-   padding: 12px;
-   background-color: #353537;
-   display: flex;
-   align-items: center;
- }
+.custom-word-input button:hover {
+  background-color: #8bc064;
+  transform: translateY(-1px);
+}
  
- 
- .line-width-control {
-   display: flex;
-   align-items: center;
-   padding: 6px 12px;
- }
- 
- .line-width-control input {
-   width: 7rem;
- }
- 
- .control-button {
-   padding: 8px 16px;
-   background-color: #6db432;
-   color: white;
-   border: none;
-   border-radius: 8px;
-   cursor: pointer;
-   font-size: 14px;
-   font-weight: 500;
-   transition: all 0.2s ease;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- }
- 
- .control-button:hover {
-   background-color: #8bc064;
-   transform: translateY(-1px);
-   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
- }
- 
- .custom-word-input {
-   display: flex;
-   gap: 8px;
-   background-color: #7b7b7d;
-   padding: 6px;
- }
- 
- .custom-word-input input {
-   border: none;
-   border-radius: 6px;
-   font-size: 14px;
-   color: #353537;
-   background-color: #fff;
-   min-width: 150px;
- }
- 
- .custom-word-input input:focus {
-   outline: none;
-   border-color: #6db432;
- }
- 
- .custom-word-input button {
-   padding: 8px 16px;
-   background-color: #6db432;
-   color: white;
-   border: none;
-   border-radius: 6px;
-   cursor: pointer;
-   font-size: 14px;
-   font-weight: 500;
-   transition: all 0.2s ease;
- }
- 
- .custom-word-input button:hover {
-   background-color: #8bc064;
-   transform: translateY(-1px);
- }
- 
- @media (max-width: 768px) {
-   .drawing-controls {
-     height: auto;
-     padding: 8px;
-     gap: 8px;
-   }
-   
-   .color-button {
-     width: 24px;
-     height: 24px;
-   }
-   
-   .control-button {
-     padding: 6px 12px;
-     font-size: 12px;
-   }
-   
-   .custom-word-input {
-     width: 100%;
-   }
-   
-   .custom-word-input input {
-     flex: 1;
-     min-width: 0;
-   }
-   
-   .line-width-control {
-     width: 50%;
-   }
-   
-   .line-width-control input {
-     width: 100%;
-   }
- }
- </style>
+@media (max-width: 768px) {
+  .drawing-controls {
+    height: auto;
+    gap: 8px;
+    padding: 8px;
+  }
+  
+  .control-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .custom-word-input {
+    width: 100%;
+  }
+  
+  .custom-word-input input {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .line-width-control {
+    width: 50%;
+  }
+  
+  .line-width-control input {
+    width: 100%;
+  }
+}
+</style>

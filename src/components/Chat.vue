@@ -80,7 +80,7 @@ watch(() => props.messages.length, async () => {
 }
 
 .message {
-  border-radius: 8px;
+  border: none;
   background-color: #353537;
   max-width: 80%;
   word-break: break-word;

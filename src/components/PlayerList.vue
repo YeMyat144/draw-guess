@@ -58,10 +58,20 @@ const sortedPlayers = () => {
 <style scoped>
 .player-list {
   background-color: #7b7b7d;
-  border-radius: 15px;
   overflow: hidden;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  max-height: 80vh;
+  overflow-y: auto;
 }
+
+.player-list::-webkit-scrollbar {
+  width: 6px;
+}
+.player-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
 
 
 .players {
