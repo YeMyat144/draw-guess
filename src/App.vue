@@ -18,7 +18,7 @@ const handleJoinRoom = (data: { username: string; roomId: string }) => {
 <template>
   <div class="app-container">
     <div v-if="!isJoined" class="join-container">
-      <h1 class="app-title">Draw & Guess</h1>
+      <h1 class="app-title">Draw | Guess</h1>
       <JoinRoom @join-room="handleJoinRoom" />
     </div>
     <GameRoom 

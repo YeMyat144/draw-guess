@@ -51,7 +51,6 @@ const copyRoomId = async () => {
 <template>
   <div class="join-room">
     <div class="join-form">
-      <h1 class="form-title">Join Room</h1>
       <div class="form-group">
         <label for="username">Your Name</label>
         <input 
@@ -110,13 +109,6 @@ const copyRoomId = async () => {
   padding: 2rem;
   width: 100%;
   max-width: 400px;
-}
-
-.form-title {
-  text-align: center;
-  color: #6db432;
-  margin-bottom: 1.5rem;
-  font-size: 2rem;
 }
 
 .form-group {
