@@ -1,6 +1,6 @@
 # Draw | Guess
 
-A real-time multiplayer drawing and guessing game built with Vue 3, TypeScript, and Socket.IO. Players take turns drawing while others try to guess the word, earning points for correct guesses.
+A real-time multiplayer drawing and guessing game built with Vue 3, TypeScript, and Socket.IO. Players take turns drawing while others try to guess the word, earning points for correct guesses.  Watch a showcase of the project here: [YouTube Demo](https://youtu.be/wPfYlacUP7s?si=T-BQIK5qLbQ0VyCU)
 
 ## Features
 
